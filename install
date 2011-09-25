@@ -1,13 +1,10 @@
 #!/bin/bash
 echo "source ~/.dot/profile" >> ~/.profile
-ln -s ~/.dot/bash_aliases ~/.bash_aliases
-ln -s ~/.dot/bash_functions ~/.bash_functions
-ln -s ~/.dot/bash_bindings ~/.bash_bindings
-ln -s ~/.dot/bash_completion ~/.bash_completion
-ln -s ~/.dot/git_completion ~/.git_completion
-ln -s ~/.dot/git_flow_completion ~/.git_flow_completion
-ln -s ~/.dot/bash_ps1 ~/.bash_ps1
-ln -s ~/.dot/vim ~/.vim
-ln -s ~/.dot/tmux.conf ~/.tmux.conf
-ln -s ~/.dot/screenrc ~/.screenrc
-ln -s ~/.dot/gitconfig ~/.gitconfig
+ln -s ~/.dotfiles/bash_aliases ~/.bash_aliases
+ln -s ~/.dotfiles/bash_functions ~/.bash_functions
+ln -s ~/.dotfiles/bash_bindings ~/.bash_bindings
+ln -s ~/.dotfiles/bash_completion ~/.bash_completion
+ln -s ~/.dotfiles/git_completion ~/.git_completion
+ln -s ~/.dotfiles/git_flow_completion ~/.git_flow_completion
+ln -s ~/.dotfiles/bash_ps1 ~/.bash_ps1
+ln -s ~/.dotfiles/gitconfig ~/.gitconfig
