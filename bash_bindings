@@ -1,0 +1,6 @@
+#!/bin/bash
+
+"\e[5D":backward-word
+"\e[5C":forward-word
+"\e[A":history-search-backward
+"\e[B":history-search-forward
