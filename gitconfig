@@ -1,0 +1,10 @@
+[user]
+  name = Eduardo Ruiz
+  email = eduarbo@gmail.com
+[color]
+  ui = auto
+  diff = auto
+  status = auto
+  branch = auto
+[rerere]
+  enabled = 1
