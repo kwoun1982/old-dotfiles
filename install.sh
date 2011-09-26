@@ -1,9 +1,11 @@
 #!/bin/bash
-echo "source ~/.dot/profile" >> ~/.profile
+dir=$(pwd)
+echo "source $dir/bash_profile" >> "$HOME/.profile"
 
-files=( bash_ps1 bash_profile bash_bindings bashrc bash_aliases bash_completion bash_functions git_completion git_flow_completion gitconfig bin )
+# old gitconfig backup
+[[ -e $HOME/.gitconfig ]] && mv $HOME/.gitconfig $HOME/.gitconfig.old
+ln -sf $dir/gitconfig $HOME/.gitconfig
 
-for file in ${files[@]}; do
-  file="$HOME/.$file"
-  [ -e "$file" ] && ln -sf "$HOME/.dotfiles/$file" "$HOME/.$file"
-done
+# To refresh bash
+source $HOME/.profile
+source $HOME/.profile
