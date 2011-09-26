@@ -1,10 +1,9 @@
 #!/bin/bash
 echo "source ~/.dot/profile" >> ~/.profile
-ln -s ~/.dotfiles/bash_aliases ~/.bash_aliases
-ln -s ~/.dotfiles/bash_functions ~/.bash_functions
-ln -s ~/.dotfiles/bash_bindings ~/.bash_bindings
-ln -s ~/.dotfiles/bash_completion ~/.bash_completion
-ln -s ~/.dotfiles/git_completion ~/.git_completion
-ln -s ~/.dotfiles/git_flow_completion ~/.git_flow_completion
-ln -s ~/.dotfiles/bash_ps1 ~/.bash_ps1
-ln -s ~/.dotfiles/gitconfig ~/.gitconfig
+
+files=( bash_ps1 bash_profile bash_bindings bashrc bash_aliases bash_completion bash_functions git_completion git_flow_completion gitconfig bin )
+
+for file in ${files[@]}; do
+  file="$HOME/.$file"
+  [ -e "$file" ] && ln -sf "$HOME/.dotfiles/$file" "$HOME/.$file"
+done

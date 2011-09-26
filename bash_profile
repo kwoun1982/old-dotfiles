@@ -4,7 +4,7 @@
 
 uptime
 
-files = ( bash_ps1 bash_profile bashrc bash_aliases bash_completion bash_functions git_completion git_flow_completion )
+files=( bash_ps1 bash_profile bash_bindings bashrc bash_aliases bash_completion bash_functions git_completion git_flow_completion )
 for file in ${files[@]}; do 
   file="$HOME/.$file"
   [ -e "$file" ] && source "$file"
@@ -14,7 +14,6 @@ bind -f $HOME/.bash_bindings
 
 export PATH="\
 $PATH:\
-$HOME/.dotfiles/bin:\
 /usr/local/bin:\
 /opt/local/bin:\
 /usr/local/pgsql/bin:\
@@ -23,8 +22,8 @@ $HOME/.dotfiles/bin:\
 &>/dev/null
 
 # put ~/bin on PATH if you have it
-test -d "$HOME/bin" &&
-  PATH="$HOME/bin:$PATH"
+test -d "$HOME/.bin" &&
+  PATH="$HOME/.bin:$PATH"
 
 # some settings to be more colorful
 export CLICOLOR=1
