@@ -3,7 +3,7 @@ My bash config files for Mac OSX
 
 To install run
 --------------
-    git clone https://github.com/mathiasbynens/dotfiles.git ~/.dotfiles && cd ~/.dotfiles && ./install.sh
+    git clone https://github.com/eduarbo/dotfiles.git ~/.dotfiles && cd ~/.dotfiles && ./install.sh
 
 Screenshots
 -----------
