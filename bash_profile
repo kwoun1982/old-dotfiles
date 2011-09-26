@@ -2,18 +2,20 @@
 
 uptime
 
+dir=$HOME/.dotfiles
+
 # Load files
-files=( bash_ps1 bash_profile bash_bindings bashrc bash_aliases bash_completion bash_functions git_completion git_flow_completion )
+files=( bash_ps1 bash_aliases bash_completion bash_functions git_completion git_flow_completion )
 for file in ${files[@]}; do
-  file="$HOME/.dotfiles/$file"
+  file="$dir/$file"
   [ -e "$file" ] && source "$file"
 done
 
-bind -f $HOME/.bash_bindings
+bind -f $dir/bash_bindings
 
 export PATH="\
 $PATH:\
-$HOME/.dotfiles/bin:\
+$dir/bin:\
 /usr/local/bin:\
 /opt/local/bin:\
 /usr/local/pgsql/bin:\
