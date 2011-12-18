@@ -8,5 +8,5 @@ ln -sf $dir/gitconfig $HOME/.gitconfig
 if [[ `uname` == "Darwin"  ]]; then
     echo "source $dir/bash_profile" >> "$HOME/.profile"
 elif [[ `uname` == "Linux"  ]]; then
-    echo "source $dir/bash_profile" >> "$HOME/.bashrc"
+    echo "source $dir/bash_profile" >> "$HOME/.bash_profile"
 fi
