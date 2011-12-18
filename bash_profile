@@ -43,13 +43,13 @@ complete -o default -o nospace -F _git_checkout gco
 complete -o default -o nospace -F _git_diff gd
 complete -o default -o nospace -F _git_branch gb
 
-export PATH="\
+export PATH="$PATH:\
 $dir/bin:\
 /usr/local/bin:\
 /opt/local/bin:\
 /usr/local/lib/node:\
 /usr/local/mysql/bin:\
-$PATH:"&>/dev/null
+"&>/dev/null
 
 # some settings to be more colorful
 export CLICOLOR=1
