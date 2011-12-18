@@ -30,7 +30,11 @@ for file in ${files[@]}; do
   [ -e "$file" ] && source "$file"
 done
 
-bind -f $dir/bash_bindings
+# For some reason is not working on Linux. 
+# I added this condition to avoid errors.
+if [[ `uname` == "Darwin"  ]]; then
+  bind -f $dir/bash_bindings
+fi
 
 # Autocomplete for 'g' as well
 complete -o default -o nospace -F _git g
