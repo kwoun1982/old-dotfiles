@@ -21,11 +21,11 @@ alias gs='git status'
 alias gc='git commit'
 alias gca='git commit -a'
 alias ga='git add'
-alias gco='git checkout '
+alias gco='git checkout'
 alias gb='git branch'
 alias gm='git merge'
 alias gd="git diff"
-alias gg="git grep -n"
+alias gg="git grep --color -n"
 alias ggi="git grep -ni"
 
 # fossil alias
@@ -40,6 +40,9 @@ alias fu="fossil ui --port 8081"
 alias fss="fossil sync"
 alias fsas="fossil all sync"
 alias fd="fossil diff"
+
+# node alias
+alias n="node"
 
 # Directories
 alias ..='cd ..'
