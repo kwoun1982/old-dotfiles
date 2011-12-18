@@ -24,7 +24,7 @@ shopt -s histappend >/dev/null 2>&1
 dir=$HOME/.dotfiles
 
 # Load files
-files=( bash_ps1 git_completion bash_completion bash_functions bash_aliases )
+files=( bash_ps1 bash_completion bash_functions git_completion git_flow_completion bash_aliases )
 for file in ${files[@]}; do
   file="$dir/$file"
   [ -e "$file" ] && source "$file"
