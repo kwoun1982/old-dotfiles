@@ -1,5 +1,5 @@
 #!/bin/bash
-dir=$(pwd)
+dir=$HOME/.dotfiles
 echo "source $dir/bash_profile" >> "$HOME/.profile"
 
 # old gitconfig backup
