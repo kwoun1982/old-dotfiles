@@ -43,12 +43,14 @@ complete -o default -o nospace -F _git_checkout gco
 complete -o default -o nospace -F _git_diff gd
 complete -o default -o nospace -F _git_branch gb
 
-export PATH="$PATH:\
-$dir/bin:\
+export PATH="\
 /usr/local/bin:\
+$dir/bin:\
 /opt/local/bin:\
 /usr/local/lib/node:\
 /usr/local/mysql/bin:\
+/opt/local/lib/postgresql84/bin:\
+$PATH:\
 "&>/dev/null
 
 # some settings to be more colorful
