@@ -3,8 +3,7 @@ if has("gui_running")
   "tell the term has 256 colors
   set t_Co=256
 
-  " http://ethanschoonover.com/solarized/vim-colors-solarized
-  colorscheme solarized
+  colorscheme monokai
   set background=dark
 
   " Show tab number (useful for Cmd-1, Cmd-2.. mapping)
@@ -12,10 +11,10 @@ if has("gui_running")
   " (the numbers don't show up) so I made it a VimEnter event
   autocmd VimEnter * set guitablabel=%N:\ %t\ %M
 
-  set lines=60
   set columns=190
+  set lines=60
 
-  set guifont=Inconsolata:h20,Monaco:h17
+  set guifont=Inconsolata:h16,Monaco:h17
 else
   "dont load csapprox if we no gui support - silences an annoying warning
   let g:CSApprox_loaded = 1
