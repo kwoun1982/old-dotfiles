@@ -80,6 +80,11 @@ if [ -s "$HOME/.rvm/scripts/rvm" ]; then
   rvm load-rvmrc
 fi
 
+# Put secret configuration settings in ~/.secrets
+if [ -s ~/.secrets ]; then
+  source ~/.secrets
+fi
+
 # load rbenv
 if [ -d "$HOME/.rbenv/bin" ]; then
   eval "$(rbenv init -)"
