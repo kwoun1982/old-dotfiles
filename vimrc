@@ -547,9 +547,15 @@ autocmd VimEnter * nunmap <Leader>ci
 nmap <C-k> [e
 nmap <C-j> ]e
 
+nmap <C-Up> [e
+nmap <C-Down> ]e
+
 " Bubble multiple lines
 vmap <C-k> [egv
 vmap <C-j> ]egv
+
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
 
 " ============================
 " QuickFix Search
@@ -698,19 +704,19 @@ endfunction
 command! -nargs=* Wrap :call SetupWrapping()<CR>
 
 " This will disable the arrow keys while you’re in normal mode to help you learn to use hjkl.
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
+" nnoremap <up> <nop>
+" nnoremap <down> <nop>
+" nnoremap <left> <nop>
+" nnoremap <right> <nop>
+" inoremap <up> <nop>
+" inoremap <down> <nop>
+" inoremap <left> <nop>
+" inoremap <right> <nop>
 
-" map <up> gk
-" imap <up> <C-o>gk
-" map <down> gj
-" imap <down> <C-o>gj
+map <up> gk
+imap <up> <C-o>gk
+map <down> gj
+imap <down> <C-o>gj
 
 map j gj
 map k gk
