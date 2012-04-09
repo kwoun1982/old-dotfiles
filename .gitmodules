@@ -121,9 +121,6 @@
 [submodule "vim/bundle/skwp-vim-git-grep-rails-partial"]
 	path = vim/bundle/skwp-vim-git-grep-rails-partial
 	url = https://github.com/skwp/vim-git-grep-rails-partial
-[submodule "vim/bundle/skwp-vim-html-escape"]
-	path = vim/bundle/skwp-vim-html-escape
-	url = https://github.com/skwp/vim-html-escape
 [submodule "vim/bundle/skwp-vim-indexed-search"]
 	path = vim/bundle/skwp-vim-indexed-search
 	url = https://github.com/skwp/vim-indexed-search
