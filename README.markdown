@@ -1,5 +1,7 @@
-My bash config files for Mac OSX
-================================
+My vim & bash config files for Mac OSX
+======================================
+
+This is a collection of best of breed tools from across the web, from scouring other people's dotfile repos, blogs, and projects.
 
 To install run
 --------------
@@ -21,3 +23,11 @@ Features
 * Git Completion
 * Git Flow Completion
 * Nice Prompt
+
+Credits
+-------
+
+I just put all I liked of others projects in one place, so all the are for:
+
+* [YADR](https://github.com/skwp/dotfiles)
+* [Steve Losh](http://stevelosh.com/)
