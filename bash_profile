@@ -49,6 +49,7 @@ $dir/bin:\
 /opt/local/bin:\
 /usr/local/lib/node:\
 /usr/local/mysql/bin:\
+/usr/games/bin:\
 /opt/local/lib/postgresql84/bin:\
 $PATH:\
 "&>/dev/null
