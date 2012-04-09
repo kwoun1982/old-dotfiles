@@ -21,6 +21,8 @@ set showmode                    "Show current mode down the bottom
 set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
+set cursorline
+set ttyfast
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
@@ -53,26 +55,26 @@ vmap <D-]> >gv
 
 " ================ Search Settings  =================
 
-set incsearch        "Find the next match as we type the search
-set hlsearch         "Hilight searches by default
 set viminfo='100,f1  "Save up to 100 marks, enable capital marks
 set ignorecase " Ignore case when searching 
 set smartcase " Ignore case when searching lowercase
-set showmatch
 set gdefault
+set incsearch        "Find the next match as we type the search
+set showmatch
+set hlsearch         "Hilight searches by default
+
+" This turns off Vim’s crazy default regex characters and makes searches use normal regexes
+nnoremap / /\v
+vnoremap / /\v
+
+"Clear current search highlight
+nmap <leader><space> :noh<CR>
 
 " ================ Turn Off Swap Files ==============
 
 set noswapfile
 set nobackup
 set nowb
-
-" ================ Persistent Undo ==================
-" Keep undo history across sessions, by storing in file.
-" Only works all the time.
-
-set undodir=~/.vim/backups
-set undofile
 
 " ================ Indentation ======================
 
@@ -199,9 +201,6 @@ imap <silent> <C-K> <%=   %><Esc>3hi
 " create <%= foo %> erb tags using Ctrl-j in edit mode
 imap <silent> <C-J> <%  %><Esc>2hi
 
-"Clear current search highlight by double tapping //
-nmap <silent> // :nohlsearch<CR>
-
 " Apple-* Highlight all occurrences of current word (like '*' but without moving)
 " http://vim.wikia.com/wiki/Highlight_all_search_pattern_matches
 nnoremap <D-*> :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
@@ -310,8 +309,8 @@ nnoremap <silent> ,T :TagbarToggle<CR>
 nmap <silent> gcp <c-_>p
 
 " Command-/ to toggle comments
-map <Leader>c :TComment<CR>
-imap <Leader>c <Esc>:TComment<CR>i
+map <silent> <Leader>c :TComment<CR>
+imap <silent> <Leader>c <Esc>:TComment<CR>i
 
 " ============================
 " AutoTag
@@ -535,6 +534,9 @@ let g:surround_35  = "#{\r}"   " #
 let g:surround_45 = "<% \r %>"    " -
 let g:surround_61 = "<%= \r %>"   " =
 
+" Remove key map becuase has conflicts with tComment
+autocmd VimEnter * nunmap <Leader>ci
+
 " ============================
 " Unimpaired
 " ============================
@@ -542,12 +544,12 @@ let g:surround_61 = "<%= \r %>"   " =
 
 " Unimpaired configuration
 " Bubble single lines
-nmap <C-Up> [e
-nmap <C-Down> ]e
+nmap <C-k> [e
+nmap <C-j> ]e
 
 " Bubble multiple lines
-vmap <C-Up> [egv
-vmap <C-Down> ]egv
+vmap <C-k> [egv
+vmap <C-j> ]egv
 
 " ============================
 " QuickFix Search
@@ -695,12 +697,23 @@ endfunction
 " TODO: this should happen automatically for certain file types (e.g. markdown)
 command! -nargs=* Wrap :call SetupWrapping()<CR>
 
-map <down> gj
+" This will disable the arrow keys while you’re in normal mode to help you learn to use hjkl.
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" map <up> gk
+" imap <up> <C-o>gk
+" map <down> gj
+" imap <down> <C-o>gj
+
 map j gj
-imap <down> <C-o>gj
-map <up> gk
 map k gk
-imap <up> <C-o>gk
 vmap $ g$
 vmap ^ g^
 vmap 0 g^
@@ -711,6 +724,17 @@ nmap ^ g^
 nmap 0 g^
 map E <Plug>CamelCaseMotion_b
 
+" get rid of that stupid goddamned help key that you will invaribly hit constantly while aiming for escape
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+nnoremap ; :
+
+au FocusLost * :wa
+
+" This sorts CSS Properties
+nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
 "statusline setup
 set statusline=%#DiffAdd#
@@ -751,6 +775,8 @@ set listchars=tab:>.,trail:.,extends:#
 nmap <leader>i :set list!<CR> " Toggle invisible chars
 
 
+" Start Colorizer
+autocmd VimEnter * ColorHighlight
 
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
