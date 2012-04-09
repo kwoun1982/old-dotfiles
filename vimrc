@@ -310,8 +310,8 @@ nnoremap <silent> ,T :TagbarToggle<CR>
 nmap <silent> gcp <c-_>p
 
 " Command-/ to toggle comments
-map ,c :TComment<CR>
-imap ,c <Esc>:TComment<CR>i
+map <Leader>c :TComment<CR>
+imap <Leader>c <Esc>:TComment<CR>i
 
 " ============================
 " AutoTag
