@@ -129,6 +129,11 @@ set sidescrolloff=15
 set sidescroll=1
 
 
+" ============== Syntax Highlighting ================
+
+" Markdown syntax
+au BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn set ft=markdown
+
 " ======= RSI Prevention - keyboard remaps ==========
 "
 " Certain things we do every day as programmers stress
