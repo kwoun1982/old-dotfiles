@@ -43,17 +43,6 @@ complete -o default -o nospace -F _git_checkout gco
 complete -o default -o nospace -F _git_diff gd
 complete -o default -o nospace -F _git_branch gb
 
-export PATH="\
-/usr/local/bin:\
-$dir/bin:\
-/opt/local/bin:\
-/usr/local/lib/node:\
-/usr/local/mysql/bin:\
-/usr/games/bin:\
-/opt/local/lib/postgresql84/bin:\
-$PATH:\
-"&>/dev/null
-
 # some settings to be more colorful
 export CLICOLOR=1
 export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
@@ -90,3 +79,15 @@ fi
 if [ -d "$HOME/.rbenv/bin" ]; then
   eval "$(rbenv init -)"
 fi
+
+export PATH="\
+/usr/local/bin:\
+/usr/local/share/python:\
+$dir/bin:\
+/opt/local/bin:\
+/usr/local/lib/node:\
+/usr/local/mysql/bin:\
+/usr/games/bin:\
+/opt/local/lib/postgresql84/bin:\
+$PATH:\
+"&>/dev/null
