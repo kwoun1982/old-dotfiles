@@ -181,3 +181,6 @@
 [submodule "vim/bundle/wavded-vim-stylus"]
 	path = vim/bundle/wavded-vim-stylus
 	url = https://github.com/wavded/vim-stylus
+[submodule "vim/bundle/hail2u-vim-css3-syntax"]
+	path = vim/bundle/hail2u-vim-css3-syntax
+	url = https://github.com/hail2u/vim-css3-syntax.git
