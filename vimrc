@@ -221,6 +221,9 @@ nnoremap <D-*> :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 " Go to previous file
 map <Leader>p <C-^>
 
+" .less to .css , lessc is required.
+nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
+
 " =================== GUI ===========================
 "
 " Make it beautiful - colors and fonts
