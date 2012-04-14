@@ -739,8 +739,30 @@ nnoremap ; :
 
 au FocusLost * :wa
 
-" This sorts CSS Properties
-nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+" Use <leader>S to sort properties.  Turns this:
+  "
+  "     p {
+  "         width: 200px;
+  "         height: 100px;
+  "         background: red;
+  "
+  "         ...
+  "     }
+  "
+  " into this:
+
+  "     p {
+  "         background: red;
+  "         height: 100px;
+  "         width: 200px;
+  "
+  "         ...
+  "     }
+au BufNewFile,BufRead *.less,*.css,*.sass,*.scss nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+
+" Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
+" positioned inside of them AND the following code doesn't get unfolded.
+au BufNewFile,BufRead *.less,*.css,*.sass,*.scss inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
 
 "statusline setup
 set statusline=%#DiffAdd#
