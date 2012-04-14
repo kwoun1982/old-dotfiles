@@ -737,7 +737,7 @@ vnoremap <F1> <ESC>
 
 nnoremap ; :
 
-au FocusLost * :wa
+autocmd BufLeave,FocusLost * silent! wall
 
 " Use <leader>S to sort properties.  Turns this:
   "
