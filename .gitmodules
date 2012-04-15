@@ -64,9 +64,6 @@
 [submodule "vim/bundle/godlygeek-tabular"]
 	path = vim/bundle/godlygeek-tabular
 	url = https://github.com/godlygeek/tabular
-[submodule "vim/bundle/jistr-vim-nerdtree-tabs"]
-	path = vim/bundle/jistr-vim-nerdtree-tabs
-	url = https://github.com/jistr/vim-nerdtree-tabs.git
 [submodule "vim/bundle/jpalardy-vim-slime"]
 	path = vim/bundle/jpalardy-vim-slime
 	url = https://github.com/jpalardy/vim-slime
