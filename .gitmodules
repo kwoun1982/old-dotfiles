@@ -187,3 +187,6 @@
 [submodule "vim/bundle/groenewege-vim-less"]
 	path = vim/bundle/groenewege-vim-less
 	url = https://github.com/groenewege/vim-less
+[submodule "vim/bundle/vim-scripts-nginx"]
+	path = vim/bundle/vim-scripts-nginx
+	url = https://github.com/vim-scripts/nginx.vim.git
