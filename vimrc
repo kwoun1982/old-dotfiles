@@ -13,24 +13,52 @@ set nocompatible
 " ================ General Config ====================
 
 let mapleader = ","
-set number                      "Line numbers are good
-set backspace=indent,eol,start  "Allow backspace in insert mode
-set history=1000                "Store lots of :cmdline history
-set showcmd                     "Show incomplete cmds down the bottom
-set showmode                    "Show current mode down the bottom
-set gcr=a:blinkon0              "Disable cursor blink
-set visualbell                  "No sounds
-set autoread                    "Reload files changed outside vim
-set cursorline
-set ttyfast
+set number                      " Line numbers are good
+set backspace=indent,eol,start  " Allow backspace in insert mode
+set history=1000                " Store lots of :cmdline history
+set showcmd                     " Show incomplete cmds down the bottom
+set showmode                    " Show current mode down the bottom
+set gcr=a:blinkon0              " Disable cursor blink
+set visualbell                  " No sounds
+set autoread                    " Reload files changed outside vim
+set cursorline                  " Highlight current line
+set ttyfast                     " Improves redrawing
+set equalalways                 " Multiple windows, when created, are equal in size
+set splitbelow splitright
+set encoding=utf-8
+set lazyredraw
+set showbreak=↪
+set nowarn
+
+syntax on                       "turn on syntax highlighting
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
 " http://items.sjbach.com/319/configuring-vim-right
 set hidden
 
-"turn on syntax highlighting
-syntax on
+" Invisible characters *********************************************************
+set nolist
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+nmap <leader>i :set list!<CR> " Toggle invisible chars
+
+" ================ Search Settings  =================
+
+set viminfo='100,f1  "Save up to 100 marks, enable capital marks
+set ignorecase " Ignore case when searching 
+set smartcase " Ignore case when searching lowercase
+set gdefault
+set incsearch        "Find the next match as we type the search
+set showmatch
+set hlsearch         "Hilight searches by default
+
+" This turns off Vim’s crazy default regex characters and makes searches use normal regexes
+nnoremap / /\v
+vnoremap / /\v
+
+"Clear current search highlight
+nmap <leader><space> :noh<CR>
+
 
 " alias yw to yank the entire word 'yank inner word'
 " even if the cursor is halfway inside the word
@@ -53,38 +81,15 @@ nmap <D-]> >>
 vmap <D-[> <gv
 vmap <D-]> >gv
 
-" ================ Search Settings  =================
-
-set viminfo='100,f1  "Save up to 100 marks, enable capital marks
-set ignorecase " Ignore case when searching 
-set smartcase " Ignore case when searching lowercase
-set gdefault
-set incsearch        "Find the next match as we type the search
-set showmatch
-set hlsearch         "Hilight searches by default
-
-" This turns off Vim’s crazy default regex characters and makes searches use normal regexes
-nnoremap / /\v
-vnoremap / /\v
-
-"Clear current search highlight
-nmap <leader><space> :noh<CR>
-
-" ================ Turn Off Swap Files ==============
-
-set noswapfile
-set nobackup
-set nowb
-
 " ================ Indentation ======================
 
-set autoindent
-set smartindent
+set autoindent          " Automatically set the indent of a new line (local to buffer)
+set smartindent         " smartindent (local to buffer)
 set smarttab
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
-set expandtab
+set noexpandtab
 
 filetype plugin on
 filetype indent on
@@ -93,11 +98,22 @@ let g:indent_guides_auto_colors = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
-" Display tabs and trailing spaces visually
-set list listchars=tab:\ \ ,trail:·
-
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
+
+" ================ Directories ========================
+
+" Setup backup location and enable
+" set backupdir=~/.vim/tmp/backup
+set nobackup
+
+" Set Swap directory
+" set directory=~/.vim/tmp/swap
+set noswapfile    " It's 2012, Vim.
+
+
+" Sets path to directory buffer was loaded from
+"autocmd BufEnter * lcd %:p:h
 
 " ================ Folds ============================
 
@@ -120,27 +136,88 @@ set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 
-"
-
 " ================ Scrolling ========================
 
 set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
 
+" ============== Auto commands ================
 
-" ============== Syntax Highlighting ================
+" You can specify commands to be executed automatically when reading or writing
+" a file, when entering or leaving a buffer or window, and when exiting Vim
 
 " Markdown syntax
 au BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn set ft=markdown
 
-" ======= RSI Prevention - keyboard remaps ==========
-"
+" CoffeeScript
+au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
+
+" Start Colorizer Plugin
+au VimEnter * ColorHighlight
+
+" Nginx conf
+au BufRead,BufNewFile nginx.conf* set ft=nginx
+
+" ASCIIdoc conf
+au BufNewFile,BufRead *.txt,*.asciidoc  setfiletype asciidoc
+
+" JSON conf
+au! BufRead,BufNewFile *.json set filetype=json foldmethod=syntax 
+
+" au BufLeave,FocusLost * silent! wall
+
+" Resize splits when the window is resized
+au VimResized * :wincmd =
+
+" Use <leader>S to sort properties.  Turns this:
+au BufNewFile,BufRead *.less,*.css,*.sass,*.scss nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+
+" Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
+" positioned inside of them AND the following code doesn't get unfolded.
+au BufNewFile,BufRead *.less,*.css,*.sass,*.scss inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
+
+" ========= Window/Tab/Split Manipulation ==============
+
+" Move between split windows by using the four directions H, L, I, N
+" (note that  I use I and N instead of J and K because  J already does
+" line joins and K is mapped to GitGrep the current word
+nnoremap <silent> <C-h> <C-w>h
+nnoremap <silent> <C-l> <C-w>l
+nnoremap <silent> <C-k> <C-w>k
+nnoremap <silent> <C-j> <C-w>j
+
+" Use numbers to pick the tab you want (like iTerm)
+map <silent> <D-1> :tabn 1<cr>
+map <silent> <D-2> :tabn 2<cr>
+map <silent> <D-3> :tabn 3<cr>
+map <silent> <D-4> :tabn 4<cr>
+map <silent> <D-5> :tabn 5<cr>
+map <silent> <D-6> :tabn 6<cr>
+map <silent> <D-7> :tabn 7<cr>
+map <silent> <D-8> :tabn 8<cr>
+map <silent> <D-9> :tabn 9<cr>
+
+" Create window splits easier. The default
+" way is Ctrl-w,v and Ctrl-w,s. I remap
+" this to vv and ss
+nnoremap <silent> vv <C-w>v
+nnoremap <silent> hh <C-w>s
+
+" Resize vertical windows by hitting plus and minus
+nnoremap <silent> + <C-w>+
+nnoremap <silent> - <C-w>-
+
+" Vertical and horizontal split then hop to a new buffer
+:noremap <Leader>v :vsp^M^W^W<cr>
+:noremap <Leader>h :split^M^W^W<cr>
+
+" ================= Key remaps ================
+
 " Certain things we do every day as programmers stress
 " out our hands. For example, typing underscores and
 " dashes are very common, and in position that require
 " a lot of hand movement. Vim to the rescue
-"
 
 " Arpeggio lets us define key-chord combos (simultaneous key presses)
 call arpeggio#load()
@@ -186,15 +263,6 @@ vnoremap <tab> %
 nmap <silent> ,qc :cclose<CR>
 nmap <silent> ,qo :copen<CR>
 
-" move up/down quickly by using Cmd-j, Cmd-k
-" which will move us around by functions
-nnoremap <silent> <D-j> }
-nnoremap <silent> <D-k> {
-autocmd FileType ruby map <buffer> <D-j> ]m
-autocmd FileType ruby map <buffer> <D-k> [m
-autocmd FileType rspec map <buffer> <D-j> }
-autocmd FileType rspec map <buffer> <D-k> {
-
 "Move back and forth through previous and next buffers
 "with ,z and ,x
 nnoremap <silent> ,z :bp<CR>
@@ -202,7 +270,6 @@ nnoremap <silent> ,x :bn<CR>
 
 " create <%= foo %> erb tags using Ctrl-k in edit mode
 imap <silent> <C-K> <%=   %><Esc>3hi
-
 " create <%= foo %> erb tags using Ctrl-j in edit mode
 imap <silent> <C-J> <%  %><Esc>2hi
 
@@ -215,96 +282,65 @@ nnoremap <D-*> :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 " with ma.  It’s more useful in any case I can imagine, but it’s located way
 " off in the corner of the keyboard. The best way to handle this is just to
 " swap them: http://items.sjbach.com/319/configuring-vim-right
-" nnoremap ' `
-" nnoremap ` '
+nnoremap ' `
+nnoremap ` '
 
 " Go to previous file
 map <Leader>p <C-^>
 
-" .less to .css , lessc is required.
-nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
+" Start searching with Ack
+nnoremap <leader>a :Ack
 
-" =================== GUI ===========================
-"
-" Make it beautiful - colors and fonts
-if has("gui_running")
-  "tell the term has 256 colors
-  set t_Co=256
+" In normal mode, press Space to toggle the current fold open/closed. However,
+" if the cursor is not in a fold, move to the right (the default behavior). In 
+" addition, with the manual fold method, you can create a fold by visually 
+" selecting some lines, then pressing Space.
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
 
-  colorscheme monokai
-  set background=dark
+" Precompile .less to .css, lessc is required.
+" autocmd BufWritePost *.less exe '!lessc ' . shellescape(expand('<afile>')) . ' ' . shellescape(expand('<afile>:r')) . '.less.css'
 
-  " Show tab number (useful for Cmd-1, Cmd-2.. mapping)
-  " For some reason this doesn't work as a regular set command,
-  " (the numbers don't show up) so I made it a VimEnter event
-  autocmd VimEnter * set guitablabel=%N:\ %t\ %M
+" This will disable the arrow keys while you’re in normal mode to help you learn to use hjkl.
+" nnoremap <up> <nop>
+" nnoremap <down> <nop>
+" nnoremap <left> <nop>
+" nnoremap <right> <nop>
+" inoremap <up> <nop>
+" inoremap <down> <nop>
+" inoremap <left> <nop>
+" inoremap <right> <nop>
 
-  " fullscreen options (MacVim only), resized window when changed to fullscreen
-  set fuoptions=maxvert,maxhorz 
+map <up> gk
+imap <up> <C-o>gk
+map <down> gj
+imap <down> <C-o>gj
 
-  " remove mac dialogs or Ctrl+F7 toggles keyboard dialog navigation
-  set guioptions+=c
+map j gj
+map k gk
+vmap $ g$
+vmap ^ g^
+vmap 0 g^
+nmap j gj
+nmap k gk
+nmap $ g$
+nmap ^ g^
+nmap 0 g^
+map E <Plug>CamelCaseMotion_b
 
-  set columns=190
-  set lines=60
+" get rid of that stupid goddamned help key that you will invaribly hit constantly while aiming for escape
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
 
-  set guifont=Inconsolata:h16,Monaco:h17
-else
-  "dont load csapprox if we no gui support - silences an annoying warning
-  let g:CSApprox_loaded = 1
-endif
-
-" Disable the scrollbars (NERDTree)
-set guioptions-=r
-set guioptions-=L
-
-" Disable the macvim toolbar
-set guioptions-=T
-
-" ========= Window/Tab/Split Manipulation ==============
-"
-" Move between split windows by using the four directions H, L, I, N
-" (note that  I use I and N instead of J and K because  J already does
-" line joins and K is mapped to GitGrep the current word
-nnoremap <silent> <C-h> <C-w>h
-nnoremap <silent> <C-l> <C-w>l
-nnoremap <silent> <C-k> <C-w>k
-nnoremap <silent> <C-j> <C-w>j
-
-" Use numbers to pick the tab you want (like iTerm)
-map <silent> <D-1> :tabn 1<cr>
-map <silent> <D-2> :tabn 2<cr>
-map <silent> <D-3> :tabn 3<cr>
-map <silent> <D-4> :tabn 4<cr>
-map <silent> <D-5> :tabn 5<cr>
-map <silent> <D-6> :tabn 6<cr>
-map <silent> <D-7> :tabn 7<cr>
-map <silent> <D-8> :tabn 8<cr>
-map <silent> <D-9> :tabn 9<cr>
-
-" Create window splits easier. The default
-" way is Ctrl-w,v and Ctrl-w,s. I remap
-" this to vv and ss
-nnoremap <silent> vv <C-w>v
-nnoremap <silent> ss <C-w>s
-
-" Resize vertical windows by hitting plus and minus
-nnoremap <silent> + <C-w>+
-nnoremap <silent> - <C-w>-
-
-" Vertical and horizontal split then hop to a new buffer
-:noremap <Leader>v :vsp^M^W^W<cr>
-:noremap <Leader>h :split^M^W^W<cr>
-
-set equalalways " Multiple windows, when created, are equal in size
-set splitbelow splitright
+nnoremap ; :
 
 " ================ Plugins ==========================
 
 " ============================
 " TagBar
 " ============================
-"open the taglist (method browser) using ,t
+"open the taglist (method browser) using ,T
 nnoremap <silent> ,T :TagbarToggle<CR>
 
 " ============================
@@ -336,11 +372,6 @@ map e <Plug>CamelCaseMotion_e
 sunmap w
 sunmap b
 sunmap e
-
-" ============================
-" CoffeeScript
-" ============================
-au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
 
 " ============================
 " CtrlP
@@ -472,27 +503,38 @@ nnoremap <silent> ,gf :vertical botright wincmd f<CR>
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let g:NERDTreeWinSize = 30
+let NERDTreeHighlightCursorline = 1
 
-" Auto open nerd tree on startup
-let g:nerdtree_tabs_open_on_gui_startup = 1
-" Focus in the main content window
-let g:nerdtree_tabs_focus_on_files = 1
-
-nmap <Leader>n :NERDTreeTabsToggle<CR>
+map <Leader>n :NERDTreeToggle<CR>
 
 " Open the project tree and expose current file in the nerdtree with Ctrl-\
-nnoremap <Leader>\ :NERDTreeFind<CR>
+nnoremap <Leader>N :NERDTreeFind<CR>
+
+let NERDTreeHijackNetrw=0 " User instead of Netrw when doing an edit /foobar
+let NERDTreeMouseMode=1 " Single click for everything
 
 " ============================
 " Tabularize - alignment
 " ============================
-" Hit Cmd-Shift-A then type a character you want to align by
-nmap <D-A> :Tabularize /
-vmap <D-A> :Tabularize /
+" Hit Ctrl-Shift-A then type a character you want to align by
+nmap <C-A> :Tabularize /
+vmap <C-A> :Tabularize /
 
 " ============================
 " SplitJoin plugin
 " ============================
+" A plugin that helps with switching between single-line and multiline code
+" E.g. It turns: 
+
+" 		puts "foo" if bar?
+
+" into:
+
+" 		if bar?
+"       puts "foo"
+"       puts "baz"
+" 		end
+
 nmap sj :SplitjoinSplit<cr>
 nmap sk :SplitjoinJoin<cr>
 
@@ -566,19 +608,6 @@ vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
 " ============================
-" QuickFix Search
-" ============================
-" Stolen from Steve Losh vimrc: https://bitbucket.org/sjl/dotfiles/src/tip/vim/.vimrc
-" Open a Quickfix window for the last search.
-nnoremap <silent> <leader>q/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
-
-" Ack for the last search.
-nnoremap <silent> <leader>qa/ :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
-
-" GitGrep the last search (my own invention)
-nnoremap <silent> <leader>qg/ :execute "GitGrep '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
-
-" ============================
 " Persist Undo
 " ============================
 " persistent undos - undo after you re-open the file
@@ -640,9 +669,6 @@ let g:neocomplcache_max_list = 5
 
 " words less than 3 letters long aren't worth completing
 let g:neocomplcache_auto_completion_start_length = 3
-
-" Map standard Ctrl-N completion to Cmd-Space
-inoremap <C-Space> <C-n>
 
 " This makes sure we use neocomplcache completefunc instead of 
 " the one in rails.vim, otherwise this plugin will crap out
@@ -711,67 +737,6 @@ endfunction
 " TODO: this should happen automatically for certain file types (e.g. markdown)
 command! -nargs=* Wrap :call SetupWrapping()<CR>
 
-" This will disable the arrow keys while you’re in normal mode to help you learn to use hjkl.
-" nnoremap <up> <nop>
-" nnoremap <down> <nop>
-" nnoremap <left> <nop>
-" nnoremap <right> <nop>
-" inoremap <up> <nop>
-" inoremap <down> <nop>
-" inoremap <left> <nop>
-" inoremap <right> <nop>
-
-map <up> gk
-imap <up> <C-o>gk
-map <down> gj
-imap <down> <C-o>gj
-
-map j gj
-map k gk
-vmap $ g$
-vmap ^ g^
-vmap 0 g^
-nmap j gj
-nmap k gk
-nmap $ g$
-nmap ^ g^
-nmap 0 g^
-map E <Plug>CamelCaseMotion_b
-
-" get rid of that stupid goddamned help key that you will invaribly hit constantly while aiming for escape
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
-
-nnoremap ; :
-
-autocmd BufLeave,FocusLost * silent! wall
-
-" Use <leader>S to sort properties.  Turns this:
-  "
-  "     p {
-  "         width: 200px;
-  "         height: 100px;
-  "         background: red;
-  "
-  "         ...
-  "     }
-  "
-  " into this:
-
-  "     p {
-  "         background: red;
-  "         height: 100px;
-  "         width: 200px;
-  "
-  "         ...
-  "     }
-au BufNewFile,BufRead *.less,*.css,*.sass,*.scss nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
-
-" Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
-" positioned inside of them AND the following code doesn't get unfolded.
-au BufNewFile,BufRead *.less,*.css,*.sass,*.scss inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
-
 "statusline setup
 set statusline=%#DiffAdd#
 set statusline+=%#warningmsg#
@@ -805,14 +770,43 @@ function! StatuslineCurrentHighlight()
     endif
 endfunction
 
-" Invisible characters *********************************************************
-set list
-set listchars=tab:>.,trail:.,extends:#
-nmap <leader>i :set list!<CR> " Toggle invisible chars
+" =================== GUI ===========================
 
+" Make it beautiful - colors and fonts
+if has("gui_running")
+  "tell the term has 256 colors
+  set t_Co=256
 
-" Start Colorizer
-autocmd VimEnter * ColorHighlight
+  " Show tab number (useful for Cmd-1, Cmd-2.. mapping)
+  " For some reason this doesn't work as a regular set command,
+  " (the numbers don't show up) so I made it a VimEnter event
+  autocmd VimEnter * set guitablabel=%N:\ %t\ %M
+
+  " fullscreen options (MacVim only), resized window when changed to fullscreen
+  set fuoptions=maxvert,maxhorz 
+
+  " remove mac dialogs or Ctrl+F7 toggles keyboard dialog navigation
+  set guioptions+=c
+
+  set columns=190
+  set lines=60
+
+  set guifont=Inconsolata:h16,Monaco:h17
+else
+  "dont load csapprox if we no gui support - silences an annoying warning
+  let g:CSApprox_loaded = 1
+endif
+
+color monokai
+
+" Disable the scrollbars (NERDTree)
+set guioptions-=r
+set guioptions-=L
+
+" Disable the macvim toolbar
+set guioptions-=T
+
+" ============= Extend .vimrc =====================
 
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
