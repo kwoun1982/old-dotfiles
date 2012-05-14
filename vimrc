@@ -19,36 +19,40 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
 
 set encoding=utf-8
 set modelines=0
-set autoindent          " Automatically set the indent of a new line (local to buffer)
+set autoindent                  " Automatically set the indent of a new line (local to buffer)
 set showmode                    " Show current mode down the bottom
 set showcmd                     " Show incomplete cmds down the bottom
 set visualbell                  " No sounds
-set vb t_vb= " Turn off bell, this could be more annoying, but I'm not sure how
+set vb t_vb=                    " Turn off bell, this could be more annoying, but I'm not sure how
 set ttyfast                     " Improves redrawing
-set ruler " Always show current positions along the bottom
+set ruler                       " Always show current positions along the bottom
 set backspace=indent,eol,start  " Allow backspace in insert mode
 set number                      " Line numbers are good
-set norelativenumber " It is much faster
-set laststatus=2  " Always show the status line
+set norelativenumber            " It is much faster
+set laststatus=2                " Always show the status line
 set history=1000                " Store lots of :cmdline history
 set undofile
 set undoreload=10000
-set nolist " Hide invisible chars
+set nolist                      " Hide invisible chars
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 set shell=/bin/bash
-set lazyredraw " Do not redraw while running macros
-set matchtime=3 " how many tenths of a second to blink
+set lazyredraw                  " Do not redraw while running macros
+set matchtime=3                 " how many tenths of a second to blink 
 "set showbreak=…
 set showbreak=↪
 set splitbelow
 set splitright
-set fillchars=diff:⣿,vert:│ " Customize text for closed folds
+set fillchars=diff:⣿,vert:│     " Customize text for closed folds
 set autowrite
 set autoread                    " Reload files changed outside vim
-set shiftround  " When at 3 spaces, and I hit > ... go to 4, not 5
+set shiftround                  " When at 3 spaces, and I hit > ... go to 4, not 5
 set title
-set linebreak    "Wrap lines at convenient points
+set linebreak                   " Wrap lines at convenient points
+set nofoldenable
+set nowarn
+set matchpairs+=<:>
 set dictionary=/usr/share/dict/words
+set clipboard=unnamed
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
@@ -57,7 +61,7 @@ set hidden
 
 " Time out on key codes but not mappings.
 " Basically this makes terminal Vim work sanely.
-set notimeout
+" set notimeout
 set ttimeout
 set ttimeoutlen=10
 
@@ -178,6 +182,17 @@ command! -nargs=* Wrap set wrap linebreak nolist
 " Enable soft-wrapping for text files
 autocmd FileType text,markdown,html setlocal wrap linebreak nolist
 
+"Wrap visually selected text
+vnoremap (  <ESC>`>a)<ESC>`<i(<ESC>
+vnoremap )  <ESC>`>a)<ESC>`<i(<ESC>
+vnoremap {  <ESC>`>a}<ESC>`<i{<ESC>
+vnoremap }  <ESC>`>a}<ESC>`<i{<ESC>
+vnoremap "  <ESC>`>a"<ESC>`<i"<ESC>
+vnoremap '  <ESC>`>a'<ESC>`<i'<ESC>
+vnoremap `  <ESC>`>a`<ESC>`<i`<ESC>
+vnoremap [  <ESC>`>a]<ESC>`<i[<ESC>
+vnoremap ]  <ESC>`>a]<ESC>`<i[<ESC>
+
 " }}}
 
 " }}}
@@ -228,17 +243,65 @@ inoremap <F1> <ESC>:set invfullscreen<CR>a
 " Unfuck my screen
 nnoremap <leader>u :syntax sync fromstart<cr>:redraw!<cr>
 
-" System clipboard interaction
-" From https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
-noremap <leader>y "*y
-noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
-noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
+" Change inside quotes with <leader>-" and <leader>-'
+nnoremap <Leader>' ci'
+nnoremap <Leader>" ci"
+
+" Go to last edit location with ,.
+nnoremap ,. '.
+
+nnoremap ; :
+
+" Go to previous word
+map E <Plug>CamelCaseMotion_b
+
+" Add spaces around a symbol with Ctrl-Space
+nnoremap <C-Space> i <esc><right>a <esc>
+
+" create <%= foo %> erb tags using ctrl-k in insert mode
+imap <silent> <c-\><c-\> <%=  %><esc>2hi
+" create <%= foo %> erb tags using Ctrl-j in insert mode
+imap <silent> <C-\> <%  %><Esc>2hi
+
+" create <%= foo %> erb tags using ctrl-k in insert mode
+" insert a => hashrocket
+imap <silent> <c-l> =>
+
+" System clipboard interaction {{{
+
+"<Ctrl-X> -- cut (goto visual mode and cut)
+imap <C-X> <C-O>vgG
+vmap <C-X> "*x<Esc>i
+
+"<Ctrl-C> -- copy (goto visual mode and copy)
+imap <C-C> <C-O>vgG
+vmap <C-C> "*y<Esc>i
+
+"<Ctrl-A> -- copy all
+imap <C-A> <C-O>gg<C-O>gH<C-O>G<Esc>
+vmap <C-A> <Esc>gggH<C-O>G<Esc>i
+
+"<Ctrl-V> -- paste
+nm \\paste\\ "=@*.'xy'<CR>gPFx"_2x:echo<CR>
+imap <C-V> x<Esc>\\paste\\"_s
+vmap <C-V> "-cx<Esc>\\paste\\"_x
+
+" }}}
 
 " Clean trailing whitespace
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
 " Make backspace work sanely in visual mode
 vnoremap <bs> x
+
+" make Y consistent with C and D
+nnoremap Y y$
+
+" TextMate’s key mappings for identation
+nmap <D-[> <<
+nmap <D-]> >>
+vmap <D-[> <gv
+vmap <D-]> >gv
 
 " Insert New Line
 map <S-Enter> O<ESC> " awesome, inserts new line without going into insert mode
@@ -251,7 +314,7 @@ map <Leader>p <C-^>
 inoremap <C-u> <esc>mzgUiw`za
 
 " Panic Button
-nnoremap <f9> mzggg?G`z
+nnoremap <f7> mzggg?G`z
 
 " Emacs bindings in command line mode
 cnoremap <c-a> <home>
@@ -266,13 +329,6 @@ nnoremap <leader>V V`]
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
-
-" HTML tag closing
-inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
-
-" Source
-vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
-nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
 
 " Sudo to write
 cnoremap w!! w !sudo tee % >/dev/null
@@ -401,12 +457,28 @@ noremap j gj
 noremap k gk
 noremap gj j
 noremap gk k
+noremap E ge
 
 " Easy buffer navigation
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+
+" Use numbers to pick the tab you want (like iTerm)
+map <silent> <D-1> :tabn 1<cr>
+map <silent> <D-2> :tabn 2<cr>
+map <silent> <D-3> :tabn 3<cr>
+map <silent> <D-4> :tabn 4<cr>
+map <silent> <D-5> :tabn 5<cr>
+map <silent> <D-6> :tabn 6<cr>
+map <silent> <D-7> :tabn 7<cr>
+map <silent> <D-8> :tabn 8<cr>
+map <silent> <D-9> :tabn 9<cr>
+
+" Resize vertical windows by hitting plus and minus
+nnoremap <silent> + <C-w>+
+nnoremap <silent> - <C-w>-
 
 " Vertical and horizontal split then hop to a new buffer
 :noremap <Leader>v :vsp^M^W^W<cr>
@@ -506,6 +578,8 @@ let g:html_indent_tags = ['p', 'li']
 augroup ft_html
     au!
 
+    au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    au FileType html,jinja,htmldjango setlocal omnifunc=htmlcomplete#CompleteTags
     au FileType html,jinja,htmldjango setlocal foldmethod=manual
 
     " Use <localleader>f to fold the current tag.
@@ -537,6 +611,7 @@ augroup END
 augroup ft_javascript
     au!
 
+    au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     au FileType javascript setlocal foldmethod=marker
     au FileType javascript setlocal foldmarker={,}
 
@@ -561,7 +636,10 @@ augroup END
 augroup ft_markdown
     au!
 
-    au BufNewFile,BufRead *.m*down setlocal filetype=markdown
+    au BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn setlocal ft=markdown
+
+    au FileType markdown setlocal foldenable
+    au FileType markdown setlocal omnifunc=htmlcomplete#CompleteTags
 
     " Use <localleader>1/2/3 to add headings.
     au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
@@ -592,7 +670,7 @@ augroup END
 augroup ft_python
     au!
 
-    " au FileType python setlocal omnifunc=pythoncomplete#Complete
+    au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
     au FileType python compiler nose
     au FileType man nnoremap <buffer> <cr> :q<cr>
@@ -622,6 +700,7 @@ augroup END
 
 augroup ft_ruby
     au!
+    au FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
     au Filetype ruby setlocal foldmethod=syntax
 augroup END
 
@@ -629,8 +708,12 @@ augroup END
 
 " Text {{{
 
-" Set File type to 'text' for files ending in .txt
-autocmd BufNewFile,BufRead *.txt setfiletype text
+" Set File type to 'text' for files ending in .txt and .asciidoc
+au BufNewFile,BufRead *.txt,*.asciidoc  setfiletype asciidoc
+" }}}
+
+" Json {{{
+au! BufRead,BufNewFile *.json set filetype=json foldmethod=syntax 
 " }}}
 
 " Vim {{{
@@ -638,6 +721,7 @@ autocmd BufNewFile,BufRead *.txt setfiletype text
 augroup ft_vim
     au!
 
+    au FileType vim setlocal foldenable
     au FileType vim setlocal foldmethod=marker
     au FileType help setlocal textwidth=78
     au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
@@ -665,8 +749,6 @@ function! IndentGuides() " {{{
 endfunction " }}}
 hi def IndentGuides guibg=#303030
 nnoremap <leader>I :call IndentGuides()<cr>
-
-" }}}
 
 " }}}
 

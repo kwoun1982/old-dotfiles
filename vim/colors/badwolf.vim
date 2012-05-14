@@ -317,13 +317,13 @@ endif
     " the line prefix '>' in the match window
     call s:HL('CtrlPLinePre', 'deepgravel', 'bg', 'none')
 
-    " the prompt’s base
+    " the promptâ€™s base
     call s:HL('CtrlPPrtBase', 'deepgravel', 'bg', 'none')
 
-    " the prompt’s text
+    " the promptâ€™s text
     call s:HL('CtrlPPrtText', 'plain', 'bg', 'none')
 
-    " the prompt’s cursor when moving over the text
+    " the promptâ€™s cursor when moving over the text
     call s:HL('CtrlPPrtCursor', 'coal', 'tardis', 'bold')
 
     " 'prt' or 'win', also for 'regex'
@@ -336,7 +336,7 @@ endif
     call s:HL('CtrlPStats', 'coal', 'tardis', 'bold')
 
     " TODO: CtrlP extensions.
-    " CtrlPTabExtra  : the part of each line that’s not matched against (Comment)
+    " CtrlPTabExtra  : the part of each line thatâ€™s not matched against (Comment)
     " CtrlPqfLineCol : the line and column numbers in quickfix mode (|s:HL-Search|)
     " CtrlPUndoT     : the elapsed time in undo mode (|s:HL-Directory|)
     " CtrlPUndoBr    : the square brackets [] in undo mode (Comment)
@@ -410,6 +410,19 @@ call s:HL('cssIdentifier', 'orange', '', 'bold')
 call s:HL('cssClassName', 'orange', '', 'none')
 
 " }}}
+" Diff {{{
+
+call s:HL('gitDiff', 'lightgravel', '',)
+
+call s:HL('diffRemoved', 'dress', '',)
+call s:HL('diffAdded', 'lime', '',)
+call s:HL('diffFile', 'coal', 'taffy', 'bold')
+call s:HL('diffNewFile', 'coal', 'taffy', 'bold')
+
+call s:HL('diffLine', 'coal', 'orange', 'bold')
+call s:HL('diffSubname', 'orange', '', 'none')
+
+" }}}
 " Django Templates {{{
 
 call s:HL('djangoArgument', 'dirtyblonde', '',)
@@ -428,6 +441,7 @@ call s:HL('htmlEndTag', 'darkroast', 'bg', 'none')
 " Tag names
 call s:HL('htmlTagName',        'coffee', '', 'bold')
 call s:HL('htmlSpecialTagName', 'coffee', '', 'bold')
+call s:HL('htmlSpecialChar',    'lime',   '', 'none')
 
 " Attributes
 call s:HL('htmlArg', 'coffee', '', 'none')
@@ -500,14 +514,16 @@ call s:HL('markdownCodeBlock', 'dirtyblonde', '', 'none')
 " Python {{{
 
 hi def link pythonOperator Operator
-call s:HL('pythonBuiltin',    'dress')
-call s:HL('pythonBuiltinObj', 'dress')
+call s:HL('pythonBuiltin',     'dress')
+call s:HL('pythonBuiltinObj',  'dress')
 call s:HL('pythonBuiltinFunc', 'dress')
-call s:HL('pythonEscape',     'dress')
-call s:HL('pythonException',  'lime', '', 'bold')
-call s:HL('pythonExceptions', 'lime', '', 'none')
-call s:HL('pythonPrecondit', 'lime', '', 'none')
-call s:HL('pythonDecorator',  'taffy', '', 'none')
+call s:HL('pythonEscape',      'dress')
+call s:HL('pythonException',   'lime', '', 'bold')
+call s:HL('pythonExceptions',  'lime', '', 'none')
+call s:HL('pythonPrecondit',   'lime', '', 'none')
+call s:HL('pythonDecorator',   'taffy', '', 'none')
+call s:HL('pythonRun',         'gravel', '', 'bold')
+call s:HL('pythonCoding',      'gravel', '', 'bold')
 
 " }}}
 " SLIMV {{{
