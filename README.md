@@ -39,6 +39,7 @@ Features
 * TextMate’s key mappings for identation
 * Wrap visually selected text with `(`,`)`,`{`,`}`,`"`,`'`,`` ` ``,`[`,`]`
 * Smart input assistant for (), [], {}, and so on
+* Syntax checking for applescript, c, coffee, cpp, css, cucumber, cuda, docbk, erlang, eruby, fortran, gentoo_metadata, go, haml, haskell, html, javascript, json, less, lua, matlab, perl, php, puppet, python, rst, ruby, sass/scss, sh, tcl, tex, vala, xhtml, xml, xslt, yaml, zpt
 
 Dependencies
 ------------
@@ -47,6 +48,14 @@ You will need to install those packages:
 
 JsLint `npm install jslint -g`
 Less `npm install less -g`
+
+Included plugins
+----------------
+
+* NERDTree - everyone's favorite tree browser
+* ShowMarks - creates a visual gutter to the left of the number column showing you your marks
+* CtrlP - `,,` to find a file
+* Fugitive - "a git wrapper so awesome, it should be illegal...". Try Gstatus and hit - to toggle files. Git d to see a diff.
 
 Convenience mappings
 --------------------
@@ -123,7 +132,7 @@ Plugins
 
 [Sparkup](https://github.com/rstacruz/sparkup): A parser for a condensed HTML format
 * `Ctrl-e` - Execute sparkup
-* `Ctrl-n` - Jump to the next empty tag/attribute
+* `Ctrl-s` - Jump to the next empty tag/attribute
 
 Credits
 -------
