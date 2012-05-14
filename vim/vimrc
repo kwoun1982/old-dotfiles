@@ -829,6 +829,17 @@ vnoremap <leader>H :Gbrowse<cr>
 
 " }}}
 
+" Gundo {{{
+
+nnoremap <F5> :GundoToggle<CR>
+
+let g:gundo_debug = 1
+let g:gundo_preview_bottom = 1
+let g:gundo_tree_statusline = "Gundo"
+let g:gundo_preview_statusline = "Gundo Preview"
+
+" }}}
+
 " }}}
 " Environments (GUI/Console) ---------------------------------------------- {{{
 
