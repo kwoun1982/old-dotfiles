@@ -874,6 +874,19 @@ let NERDTreeMouseMode=1 " Single click for everything
 
 " }}}
 
+" Sparkup {{{
+
+let g:sparkupNextMapping = '<c-s>'
+
+"}}}
+
+" Supertab {{{
+
+let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabLongestHighlight = 1
+
+"}}}
+
 " }}}
 " Environments (GUI/Console) ---------------------------------------------- {{{
 
