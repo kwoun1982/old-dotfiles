@@ -916,6 +916,13 @@ let NERDTreeMouseMode=1 " Single click for everything
 
 " }}}
 
+" ShowMarks {{{
+
+" Tell showmarks to not include the various brace marks (),{}, etc
+let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY"
+
+" }}}
+
 " Sparkup {{{
 
 let g:sparkupNextMapping = '<c-s>'
