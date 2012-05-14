@@ -753,6 +753,17 @@ nnoremap <leader>I :call IndentGuides()<cr>
 " }}}
 
 " }}}
+" Plugin settings --------------------------------------------------------- {{{
+
+" Powerline {{{
+
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_cache_enabled = 1
+" let g:Powerline_colorscheme = 'badwolf'
+
+" }}}
+
+" }}}
 " Environments (GUI/Console) ---------------------------------------------- {{{
 
 if has('gui_running')
@@ -761,7 +772,6 @@ if has('gui_running')
     set t_Co=256 "tell the term has 256 colors
 
     set guifont=Menlo\ Regular\ for\ Powerline:h12
-    "set guifont=Inconsolata:h16,Monaco:h17
 
     " Show tab number (useful for Cmd-1, Cmd-2.. mapping)
     " For some reason this doesn't work as a regular set command,
