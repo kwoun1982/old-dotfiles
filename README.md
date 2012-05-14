@@ -37,7 +37,8 @@ Features
 * Window navigation with h,j,k,l by holding down the Ctrl key
 * Compiling Less files from Vim every save action
 * TextMate’s key mappings for identation
-* Wrap visually selected text with `(`,`)`,`{`,`}`,`"`,`'`,`\``,`[`,`]`
+* Wrap visually selected text with `(`,`)`,`{`,`}`,`"`,`'`,`` ` ``,`[`,`]`
+* Smart input assistant for (), [], {}, and so on
 
 Dependencies
 ------------
@@ -116,6 +117,13 @@ Convenience mappings
 * `,a` - Start searching with Ack
 * `,C` - Toggle "keep current line in the center of the screen" mode
 * `space` - Space to toggle folds.
+
+Plugins
+-------
+
+[Sparkup](https://github.com/rstacruz/sparkup): A parser for a condensed HTML format
+* `Ctrl-e` - Execute sparkup
+* `Ctrl-n` - Jump to the next empty tag/attribute
 
 Credits
 -------
