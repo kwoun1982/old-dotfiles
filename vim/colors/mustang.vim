@@ -55,3 +55,4 @@ hi pythonOperator guifg=#7e8aa2 gui=none ctermfg=103
 
 hi Search     guifg=white	guibg=NONE	cterm=NONE	gui=underline
 
+
