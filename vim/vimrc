@@ -763,6 +763,14 @@ let g:Powerline_cache_enabled = 1
 
 " }}}
 
+" CommentT {{{
+
+" Command-/ to toggle comments
+nnoremap <silent> <Leader>c :TComment<CR>
+inoremap <silent> <Leader>c <Esc>:TComment<CR>i
+
+" }}}
+
 " Ctrl-P {{{
 
 let g:ctrlp_dont_split = 'NERD_tree_2'
