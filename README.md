@@ -40,6 +40,7 @@ Features
 * Wrap visually selected text with `(`,`)`,`{`,`}`,`"`,`'`,`` ` ``,`[`,`]`
 * Smart input assistant for (), [], {}, and so on
 * Syntax checking for applescript, c, coffee, cpp, css, cucumber, cuda, docbk, erlang, eruby, fortran, gentoo_metadata, go, haml, haskell, html, javascript, json, less, lua, matlab, perl, php, puppet, python, rst, ruby, sass/scss, sh, tcl, tex, vala, xhtml, xml, xslt, yaml, zpt
+* Snippets files for various programming languages
 
 Dependencies
 ------------
