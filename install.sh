@@ -19,4 +19,4 @@ fi
 ln -s "$dir/vim" "$HOME/.vim"
 
 [[ -e $HOME/.vimrc ]] && mv $HOME/.vimrc $HOME/.vimrc.old
-ln -s "$dir/vimrc" "$HOME/.vimrc"
+ln -s "$HOME/.vim/vimrc" "$HOME/.vimrc"
