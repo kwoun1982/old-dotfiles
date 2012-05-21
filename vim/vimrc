@@ -183,15 +183,15 @@ command! -nargs=* Wrap set wrap linebreak nolist
 autocmd FileType text,markdown,html setlocal wrap linebreak nolist
 
 "Wrap visually selected text
-vnoremap (  <ESC>`>a)<ESC>`<i(<ESC>
-vnoremap )  <ESC>`>a)<ESC>`<i(<ESC>
-vnoremap {  <ESC>`>a}<ESC>`<i{<ESC>
-vnoremap }  <ESC>`>a}<ESC>`<i{<ESC>
-vnoremap "  <ESC>`>a"<ESC>`<i"<ESC>
-vnoremap '  <ESC>`>a'<ESC>`<i'<ESC>
-vnoremap `  <ESC>`>a`<ESC>`<i`<ESC>
-vnoremap [  <ESC>`>a]<ESC>`<i[<ESC>
-vnoremap ]  <ESC>`>a]<ESC>`<i[<ESC>
+" vnoremap (  <ESC>`>a)<ESC>`<i(<ESC>
+" vnoremap )  <ESC>`>a)<ESC>`<i(<ESC>
+" vnoremap {  <ESC>`>a}<ESC>`<i{<ESC>
+" vnoremap }  <ESC>`>a}<ESC>`<i{<ESC>
+" vnoremap "  <ESC>`>a"<ESC>`<i"<ESC>
+" vnoremap '  <ESC>`>a'<ESC>`<i'<ESC>
+" vnoremap `  <ESC>`>a`<ESC>`<i`<ESC>
+" vnoremap [  <ESC>`>a]<ESC>`<i[<ESC>
+" vnoremap ]  <ESC>`>a]<ESC>`<i[<ESC>
 
 " }}}
 
@@ -767,6 +767,7 @@ let g:Powerline_cache_enabled = 1
 
 " Command-/ to toggle comments
 nnoremap <silent> <Leader>c :TComment<CR>
+vnoremap <silent> <Leader>c :TComment<CR>
 inoremap <silent> <Leader>c <Esc>:TComment<CR>i
 
 " }}}
@@ -891,6 +892,12 @@ let g:atia_attributes_complete = 0
 
 " }}}
 
+" Markdown Preview {{{
+
+map <leader>md :Mm<CR>
+
+" }}}
+
 " NERD Tree {{{
 
 noremap <Leader>n :NERDTreeToggle<CR>
@@ -943,6 +950,28 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_disabled_filetypes = ['html', 'rst']
 let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
+
+" }}}
+
+" Tabular {{{
+
+nmap <Leader>t= :Tabularize /=<CR>
+vmap <Leader>t= :Tabularize /=<CR>
+nmap <Leader>t: :Tabularize /:\zs<CR>
+vmap <Leader>t: :Tabularize /:\zs<CR>
+
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+ 
+function! s:align()
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
+endfunction
 
 " }}}
 

@@ -134,6 +134,7 @@ Plugins
 [Sparkup](https://github.com/rstacruz/sparkup): A parser for a condensed HTML format
 * `Ctrl-e` - Execute sparkup
 * `Ctrl-s` - Jump to the next empty tag/attribute
+* `,md` - Markdown Preview in the browser
 
 Credits
 -------
