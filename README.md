@@ -55,7 +55,7 @@ Included plugins
 
 * NERDTree - everyone's favorite tree browser
 * ShowMarks - creates a visual gutter to the left of the number column showing you your marks
-* CtrlP - `,,` to find a file
+* CtrlP - `,f` to find a file
 * Fugitive - "a git wrapper so awesome, it should be illegal...". Try Gstatus and hit - to toggle files. Git d to see a diff.
 
 Convenience mappings
@@ -135,6 +135,7 @@ Plugins
 * `Ctrl-e` - Execute sparkup
 * `Ctrl-s` - Jump to the next empty tag/attribute
 * `,md` - Markdown Preview in the browser
+* `,,w` - Easy Motion
 
 Credits
 -------
