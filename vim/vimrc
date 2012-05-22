@@ -220,7 +220,8 @@ let maplocalleader = "\\"
 syntax on
 set background=dark
 let g:badwolf_html_link_underline = 0
-colorscheme badwolf
+" colorscheme badwolf
+colorscheme monokai
 
 " Reload the colorscheme whenever we write the file.
 augroup color_badwolf_dev
