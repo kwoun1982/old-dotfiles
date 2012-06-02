@@ -88,9 +88,6 @@
 [submodule "vim/bundle/asciidoc"]
 	path = vim/bundle/asciidoc
 	url = https://github.com/framallo/asciidoc.vim.git
-[submodule "vim/bundle/closetag"]
-	path = vim/bundle/closetag
-	url = https://github.com/vim-scripts/closetag.vim.git
 [submodule "vim/bundle/eruby"]
 	path = vim/bundle/eruby
 	url = https://github.com/vim-scripts/eruby.vim.git
@@ -118,3 +115,6 @@
 [submodule "iTerm-2-Color-Themes"]
 	path = iTerm-2-Color-Themes
 	url = https://github.com/baskerville/iTerm-2-Color-Themes.git
+[submodule "vim/bundle/ack"]
+	path = vim/bundle/ack
+	url = https://github.com/mileszs/ack.vim.git
