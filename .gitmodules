@@ -97,9 +97,6 @@
 [submodule "vim/bundle/jade"]
 	path = vim/bundle/jade
 	url = https://github.com/digitaltoad/vim-jade.git
-[submodule "vim/bundle/search-complete"]
-	path = vim/bundle/search-complete
-	url = https://github.com/vim-scripts/SearchComplete.git
 [submodule "vim/bundle/vim-snipmate"]
 	path = vim/bundle/vim-snipmate
 	url = git://github.com/garbas/vim-snipmate.git
