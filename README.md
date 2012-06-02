@@ -46,9 +46,29 @@ Dependencies
 ------------
 
 You will need to install those packages:
+* Ack
+* JSLint
+* Less
 
-JsLint `npm install jslint -g`
-Less `npm install less -g`
+Also you need to install node.js and npm for install some node packages
+sudo apt-get install nodejs npm
+
+**Install on Debian / Ubuntu with:**
+
+    sudo apt-get install ack-grep
+
+Node.js and npm are required `sudo apt-get install nodejs npm`
+
+**Install on OSX (I will suggest to use [homebrew](http://mxcl.github.com/homebrew/)):**
+
+Node.js and npm are required `brew install node && curl http://npmjs.org/install.sh | sh`
+
+Packages:
+
+    brew install ack
+    npm install jslint -g
+    npm install less -g
+
 
 Included plugins
 ----------------
