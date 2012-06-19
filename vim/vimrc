@@ -37,7 +37,7 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
     set shell=/bin/bash
     set lazyredraw                  " Do not redraw while running macros
-    set matchtime=3                 " how many tenths of a second to blink 
+    set matchtime=3                 " how many tenths of a second to blink
     "set showbreak=…
     set showbreak=↪
     set splitbelow
@@ -302,7 +302,7 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     map <Enter> o<ESC>
 
     " Go to previous file
-    map <Leader>p <C-^> 
+    map <Leader>p <C-^>
 
     " Change case
     inoremap <C-u> <esc>mzgUiw`za
@@ -325,7 +325,7 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
     " Sudo to write
-    cnoremap w!! w !sudo tee % >/dev/null
+    " cnoremap w!! w !sudo tee % >/dev/null
 
     " Typos
     command! -bang E e<bang>
@@ -696,7 +696,7 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     au BufNewFile,BufRead *.txt,*.asciidoc  setfiletype asciidoc
     " }}}
     " Json {{{
-    au! BufRead,BufNewFile *.json set filetype=json foldmethod=syntax 
+    au! BufRead,BufNewFile *.json set filetype=json foldmethod=syntax
     " }}}
     " Vim {{{
 
@@ -932,7 +932,7 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     vmap <Leader>t: :Tabularize /:\zs<CR>
 
     inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-    
+
     function! s:align()
     let p = '^\s*|\s.*\s|\s*$'
     if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
