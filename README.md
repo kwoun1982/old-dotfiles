@@ -50,22 +50,22 @@ You will need to install those packages:
 * JSLint
 * Less
 
-Also you need to install node.js and npm for install some node packages
-sudo apt-get install nodejs npm
+And have VIM version 7.3 In OS X you can install it with brew `brew install https://raw.github.com/Homebrew/homebrew-dupes/master/vim.rb`
+
+Also you need to install node.js and npm for install some node packages and
+other dependencies.
 
 **Install on Debian / Ubuntu with:**
 
-    sudo apt-get install ack-grep
-
-Node.js and npm are required `sudo apt-get install nodejs npm`
+    sudo apt-get install nodejs npm ack-grep
 
 **Install on OSX (I will suggest to use [homebrew](http://mxcl.github.com/homebrew/)):**
 
-Node.js and npm are required `brew install node && curl http://npmjs.org/install.sh | sh`
+    brew install ack node && curl http://npmjs.org/install.sh | sh
 
-Packages:
+Once you have installed node and npm install these packages required for some
+plugins:
 
-    brew install ack
     npm install jslint -g
     npm install less -g
 
