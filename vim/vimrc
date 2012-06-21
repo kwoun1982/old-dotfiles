@@ -23,7 +23,6 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     set showmode                    " Show current mode down the bottom
     set showcmd                     " Show incomplete cmds down the bottom
     set visualbell                  " No sounds
-    set vb t_vb=                    " Turn off bell, this could be more annoying, but I'm not sure how
     set ttyfast                     " Improves redrawing
     set ruler                       " Always show current positions along the bottom
     set backspace=indent,eol,start  " Allow backspace in insert mode
@@ -34,7 +33,7 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     set undofile
     set undoreload=10000
     set nolist                      " Hide invisible chars
-    set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+    set listchars=tab:▸.,trail:.,eol:¬,extends:❯,precedes:❮,nbsp:.
     set shell=/bin/bash
     set lazyredraw                  " Do not redraw while running macros
     set matchtime=3                 " how many tenths of a second to blink
@@ -53,6 +52,7 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     set matchpairs+=<:>
     set dictionary=/usr/share/dict/words
     set clipboard=unnamed
+    set pastetoggle=<F2>            " Use it for pasting large amounts of text into Vim, disabling all kinds of smartness and just pasting a whole buffer of text
 
     " This makes vim act like all other editors, buffers can
     " exist in the background without being in a window.
@@ -70,6 +70,9 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
 
     " Better Completion
     set completeopt=longest,menuone,preview
+
+    " Disable the stupid pydoc preview window for the omni completion
+    set completeopt-=preview
 
     " Save when losing focus
     " au FocusLost * :silent! wall
@@ -113,8 +116,6 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     set wildignore+=*.sw?                            " Vim swap files
     set wildignore+=*vim/backups*
     set wildignore+=*.DS_Store                       " OSX bullshit
-    set wildignore+=*.luac                           " Lua byte code
-    set wildignore+=migrations                       " Django migrations
     set wildignore+=*.pyc                            " Python byte code
     set wildignore+=*.orig                           " Merge resolution files
     set wildignore+=*sass-cache*
@@ -124,9 +125,6 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     set wildignore+=tmp/**
     set wildignore+=vendor/rails/**
     set wildignore+=vendor/cache/**
-    " Clojure/Leiningen
-    set wildignore+=classes
-    set wildignore+=lib
 
     " }}}
     " Line Return {{{
@@ -157,13 +155,13 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     set tabstop=8
     set shiftwidth=4
     set softtabstop=4
-    set textwidth=79
+    set textwidth=0
     set nowrap
     set formatoptions=qrn1
     set colorcolumn=+1
 
-    autocmd FileType html,xhtml setlocal sw=2 ts=2 sts=2 textwidth=0
-    autocmd FileType javascript,python setlocal sw=4 ts=4 sts=4
+    autocmd FileType html,xhtml,javascript setlocal sw=2 ts=2 sts=2
+    autocmd FileType python setlocal sw=4 ts=4 sts=4
     autocmd FileType css,sass,scss,less,ruby,eruby setlocal sw=2 ts=2 sts=2
 
     let g:indent_guides_auto_colors = 1
@@ -194,9 +192,9 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     " }}}
     " Backups {{{
 
-    set undodir=~/.vim/tmp/undo//       " undo files
-    set backupdir=~/.vim/tmp/backup//   " backups
-    set directory=~/.vim/tmp/swap//     " swap files
+    set undodir=~/.vim/tmp/undo         " undo files
+    set backupdir=~/.vim/tmp/backup     " backups
+    set directory=~/.vim/tmp/swap       " swap files
     set undofile
     set nobackup                        " disable backups
     set noswapfile                      " It's 2012, Vim.
@@ -261,27 +259,6 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     " insert a => hashrocket
     imap <silent> <c-l> =>
 
-    " System clipboard interaction {{{
-
-    "<Ctrl-X> -- cut (goto visual mode and cut)
-    imap <C-X> <C-O>vgG
-    vmap <C-X> "*x<Esc>i
-
-    "<Ctrl-C> -- copy (goto visual mode and copy)
-    imap <C-C> <C-O>vgG
-    vmap <C-C> "*y<Esc>i
-
-    "<Ctrl-A> -- copy all
-    imap <C-A> <C-O>gg<C-O>gH<C-O>G<Esc>
-    vmap <C-A> <Esc>gggH<C-O>G<Esc>i
-
-    "<Ctrl-V> -- paste
-    nm \\paste\\ "=@*.'xy'<CR>gPFx"_2x:echo<CR>
-    imap <C-V> x<Esc>\\paste\\"_s
-    vmap <C-V> "-cx<Esc>\\paste\\"_x
-
-    " }}}
-
     " Clean trailing whitespace
     nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
@@ -338,9 +315,6 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     command! -bang Wq wq<bang>
     command! -bang WQ wq<bang>
 
-    " Toggle paste
-    set pastetoggle=<F6>
-
     " Toggle [i]nvisible characters
     nnoremap <leader>i :set list!<cr>
 
@@ -355,18 +329,6 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     inoremap ˚ <Esc>:m-2<CR>
     vnoremap ∆ :m'>+<CR>gv
     vnoremap ˚ :m-2<CR>gv
-    " }}}
-
-    " Easy filetype switching {{{
-    nnoremap _md :set ft=markdown<CR>
-    nnoremap _hd :set ft=htmldjango<CR>
-    nnoremap _jt :set ft=htmljinja<CR>
-    nnoremap _js :set ft=javascript<CR>
-    nnoremap _rb :set ft=ruby<CR>
-    nnoremap _cs :set ft=css<CR>
-    nnoremap _cw :set ft=confluencewiki<CR>
-    nnoremap _pd :set ft=python.django<CR>
-    nnoremap _d  :set ft=diff<CR>
     " }}}
 
     " Insert Mode Completion {{{
@@ -420,10 +382,6 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     noremap L $
     vnoremap L g_
 
-    " make the tab key match bracket pairs
-    nnoremap <tab> %
-    vnoremap <tab> %
-
     " Heresy
     inoremap <c-a> <esc>I
     inoremap <c-e> <esc>A
@@ -443,6 +401,14 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
 
     " Toggle "keep current line in the center of the screen" mode
     nnoremap <leader>C :let &scrolloff=999-&scrolloff<cr>
+
+    " Use Q for formatting the current paragraph (or selection)
+    vmap Q gq
+    nmap Q gqap
+
+    " make the tab key match bracket pairs
+    nnoremap <tab> %
+    vnoremap <tab> %
 
     " Directional Keys {{{
 
@@ -534,30 +500,9 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
         au Filetype sass,scss,less,css setlocal omnifunc=csscomplete#CompleteCSS
         au Filetype sass,scss,less,css setlocal iskeyword+=-
 
-        " Use <leader>S to sort properties.  Turns this:
-        "
-        "     p {
-        "         width: 200px;
-        "         height: 100px;
-        "         background: red;
-        "
-        "         ...
-        "     }
-        "
-        " into this:
-
-        "     p {
-        "         background: red;
-        "         height: 100px;
-        "         width: 200px;
-        "
-        "         ...
-        "     }
-        au BufNewFile,BufRead *.sass,*.scss,*.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
-
         " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
         " positioned inside of them AND the following code doesn't get unfolded.
-        au BufNewFile,BufRead *.sass,*.scss,*.less,*.css inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
+        au BufNewFile,BufRead *.sass,*.scss,*.less,*.css inoremap <buffer> {<cr> {}<left><cr><cr><esc>kA<space><space><space><space><bs>
 
         " Compiling Less Files from Vim every save action
         autocmd BufWritePost,FileWritePost *.less :silent !lessc <afile> <afile>:p:r.css
@@ -608,7 +553,7 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
 
         " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
         " positioned inside of them AND the following code doesn't get unfolded.
-        au Filetype javascript inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
+        au Filetype javascript inoremap <buffer> {<cr> {}<left><cr><space><space>.<cr><esc>kA<bs>
     augroup END
 
     " }}}
@@ -692,6 +637,8 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     " }}}
     " Text {{{
 
+    au FileType help setlocal textwidth=80
+
     " Set File type to 'text' for files ending in .txt and .asciidoc
     au BufNewFile,BufRead *.txt,*.asciidoc  setfiletype asciidoc
     " }}}
@@ -705,7 +652,6 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
 
         au FileType vim setlocal foldenable
         au FileType vim setlocal foldmethod=marker
-        au FileType help setlocal textwidth=78
         au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
     augroup END
 
@@ -717,23 +663,6 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     " Stuff that should probably be broken out into plugins, but hasn't proved to be
     " worth the time to do so just yet.
 
-    " Indent Guides {{{
-
-    let g:indentguides_state = 0
-    function! IndentGuides() " {{{
-        if g:indentguides_state
-            let g:indentguides_state = 0
-            2match None
-        else
-            let g:indentguides_state = 1
-            execute '2match IndentGuides /\%(\_^\s*\)\@<=\%(\%'.(0*&sw+1).'v\|\%'.(1*&sw+1).'v\|\%'.(2*&sw+1).'v\|\%'.(3*&sw+1).'v\|\%'.(4*&sw+1).'v\|\%'.(5*&sw+1).'v\|\%'.(6*&sw+1).'v\|\%'.(7*&sw+1).'v\)\s/'
-        endif
-    endfunction " }}}
-    hi def IndentGuides guibg=#303030
-    nnoremap <leader>I :call IndentGuides()<cr>
-
-    " }}}
-
 " }}}
 " Plugin settings --------------------------------------------------------- {{{
 
@@ -741,7 +670,6 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
 
     let g:Powerline_symbols = 'fancy'
     let g:Powerline_cache_enabled = 1
-    " let g:Powerline_colorscheme = 'badwolf'
 
     " }}}
     " CommentT {{{
@@ -791,8 +719,6 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
 
     nnoremap <leader>. :CtrlPTag<cr>
 
-    " }}}
-    " Easy Motion {{{
     " }}}
     " Fugitive {{{
 
@@ -867,11 +793,6 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     let g:rdfa_attributes_complete = 0
     let g:microdata_attributes_complete = 0
     let g:atia_attributes_complete = 0
-
-    " }}}
-    " Markdown Preview {{{
-
-    map <leader>md :Mm<CR>
 
     " }}}
     " NERD Tree {{{
@@ -977,7 +898,7 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
         " Different cursors for different modes.
         set guicursor=n-c:block-Cursor-blinkon0
         set guicursor+=v:block-vCursor-blinkon0
-        set guicursor+=i-ci:ver20-iCursor
+        " set guicursor+=i-ci:ver20-iCursor
 
         if has("gui_macvim")
             " Full screen means FULL screen
@@ -1007,6 +928,8 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
             inoremap <D-BS>     <esc>my0c`y
         else
             " Non-MacVim GUI, like Gvim
+
+            autocmd GUIEnter * set vb t_vb=
 
             "dont load csapprox if we no gui support - silences an annoying warning
             let g:CSApprox_loaded = 1

@@ -41,6 +41,7 @@ Features
 * Smart input assistant for (), [], {}, and so on
 * Syntax checking for applescript, c, coffee, cpp, css, cucumber, cuda, docbk, erlang, eruby, fortran, gentoo_metadata, go, haml, haskell, html, javascript, json, less, lua, matlab, perl, php, puppet, python, rst, ruby, sass/scss, sh, tcl, tex, vala, xhtml, xml, xslt, yaml, zpt
 * Snippets files for various programming languages
+* Paste large amounts of text into Vim.
 
 Dependencies
 ------------
@@ -50,7 +51,7 @@ You will need to install those packages:
 * JSLint
 * Less
 
-And have VIM version 7.3 In OS X you can install it with brew `brew install https://raw.github.com/Homebrew/homebrew-dupes/master/vim.rb`
+And have VIM version 7.3 In OS X you can install it with brew `brew install https://raw.github.com/gist/2963590/43c0c6a8e5c9d3a7484584f1a28ab83b48d8cf4b/vim`
 
 Also you need to install node.js and npm for install some node packages and
 other dependencies.
@@ -110,17 +111,9 @@ Convenience mappings
 * `F6` - Toggle paste
 * `F7` - Panic buttons ;) try it!
 * `:Wrap` - To make Vim break lines without breaking words.
-
-**Easy filetype switching:**
-* `_md` - set filetype to markdown
-* `_hd` - set filetype to htmldjango
-* `_jt` - set filetype to htmljinja
-* `_js` - set filetype to javascript
-* `_rb` - set filetype to ruby
-* `_cs` - set filetype to css
-* `_cw` - set filetype to confluencewiki
-* `_pd` - set filetype to python.django
-* `_d ` - set filetype to diff
+* `F2` - Paste mode, disable all kinds of smartness and just pasting a whole
+  buffer of text
+* `Q` - Format the current paragraph (or selection)
 
 **Typos:**
 * `E` - :e!
