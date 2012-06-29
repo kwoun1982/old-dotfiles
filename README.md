@@ -111,8 +111,8 @@ Convenience mappings
 * `F2` - Paste mode, disable all kinds of smartness and just pasting a whole
   buffer of text
 * `Q` - Format the current paragraph (or selection)
-* `yy` - Copy to Desktop Environment
-* `pp` - Past from Desktop Environment
+* `,yy` - Copy to Desktop Environment
+* `,pp` - Past from Desktop Environment
 
 **Typos:**
 * `E` - :e!
