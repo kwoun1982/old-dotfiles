@@ -51,7 +51,7 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     set nowarn
     set matchpairs+=<:>
     set dictionary=/usr/share/dict/words
-    set clipboard=unnamed
+    " set clipboard=unnamed
     set pastetoggle=<F2>            " Use it for pasting large amounts of text into Vim, disabling all kinds of smartness and just pasting a whole buffer of text
 
     " This makes vim act like all other editors, buffers can
@@ -250,6 +250,10 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     " Add spaces around a symbol with Ctrl-Space
     nnoremap <C-Space> i <esc><right>a <esc>
 
+    " Copy/Paste to and from Desktop Environment
+    noremap <leader>yy "+y
+    noremap <leader>pp "+gP
+
     " create <%= foo %> erb tags using ctrl-k in insert mode
     imap <silent> <c-\><c-\> <%=  %><esc>2hi
     " create <%= foo %> erb tags using Ctrl-j in insert mode
@@ -288,8 +292,9 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     nnoremap <f7> mzggg?G`z
 
     " Emacs bindings in command line mode
-    cnoremap <c-a> <home>
-    cnoremap <c-e> <end>
+    " Ctr+E has conflicts with Sparkup plugin
+    " cnoremap <c-a> <home>
+    " cnoremap <c-e> <end>
 
     " Diffoff
     nnoremap <leader>D :diffoff!<cr>
@@ -339,6 +344,21 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
     " Quick editing {{{
     nnoremap <leader>ev :vsplit $MYVIMRC<cr>
     " }}}
+
+    " Gvim Settings {{{
+
+    " Make shift-insert work like in Xterm
+    map <S-Insert> <MiddleMouse>
+    map! <S-Insert> <MiddleMouse>
+
+    " Prefer unix over windows over os9 formats
+    set fileformats=unix,dos,mac
+
+    " Don't bell or blink(Courtesy: Cream Editor).
+    if has('autocmd')
+        autocmd GUIEnter * set vb t_vb=
+    endif
+    }}}
 
 " }}}
 " Searching and movement -------------------------------------------------- {{{
@@ -928,9 +948,7 @@ imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams 
             inoremap <D-BS>     <esc>my0c`y
         else
             " Non-MacVim GUI, like Gvim
-
-            autocmd GUIEnter * set vb t_vb=
-
+"
             "dont load csapprox if we no gui support - silences an annoying warning
             let g:CSApprox_loaded = 1
         end

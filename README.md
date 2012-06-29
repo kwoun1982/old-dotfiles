@@ -6,6 +6,8 @@ This is a collection of best of breed tools from across the web, from scouring o
 To install run
 --------------
     git clone https://github.com/eduarbo/dotfiles.git ~/.dotfiles && cd ~/.dotfiles && ./install.sh
+    git submodule init
+    git submodule update
 
 Screenshots
 -----------
@@ -29,15 +31,12 @@ Vim Configuration
 Features
 --------
 * You can use `Ctrl-c`, `Ctrl-v`, `Ctrl-x`, and `Ctrl-a` for quick yank, paste, cut and select all.
-* Emacs binding in comand line and insert mode. `Ctrl-e`, `Ctrl-a`.
 * Drag lines
-* Easy filetype switching
 * Quick editing
 * Make the tab key match bracket pairs
 * Window navigation with h,j,k,l by holding down the Ctrl key
 * Compiling Less files from Vim every save action
 * TextMate’s key mappings for identation
-* Wrap visually selected text with `(`,`)`,`{`,`}`,`"`,`'`,`` ` ``,`[`,`]`
 * Smart input assistant for (), [], {}, and so on
 * Syntax checking for applescript, c, coffee, cpp, css, cucumber, cuda, docbk, erlang, eruby, fortran, gentoo_metadata, go, haml, haskell, html, javascript, json, less, lua, matlab, perl, php, puppet, python, rst, ruby, sass/scss, sh, tcl, tex, vala, xhtml, xml, xslt, yaml, zpt
 * Snippets files for various programming languages
@@ -51,7 +50,7 @@ You will need to install those packages:
 * JSLint
 * Less
 
-And have VIM version 7.3 In OS X you can install it with brew `brew install https://raw.github.com/gist/2963590/43c0c6a8e5c9d3a7484584f1a28ab83b48d8cf4b/vim`
+And have VIM version 7.3 In OS X you can install it with brew `brew install macvim`
 
 Also you need to install node.js and npm for install some node packages and
 other dependencies.
@@ -92,7 +91,6 @@ Convenience mappings
 * `Y` - Make Y consistent with C and D
 * `S` - Split line
 * `,S` - Sort CSS properties
-* `:w!!` - Sudo to write
 * `,i` - Toggle [i]visible chars
 * `,'` - Change inside single quotes
 * `,"` - Change inside double quotes
@@ -108,12 +106,13 @@ Convenience mappings
 * `Enter` - Inserts new line in normal mode
 * `Shift-Enter` - Prepends new line in normal mode
 * `Ctrl-u` - Change case
-* `F6` - Toggle paste
 * `F7` - Panic buttons ;) try it!
 * `:Wrap` - To make Vim break lines without breaking words.
 * `F2` - Paste mode, disable all kinds of smartness and just pasting a whole
   buffer of text
 * `Q` - Format the current paragraph (or selection)
+* `yy` - Copy to Desktop Environment
+* `pp` - Past from Desktop Environment
 
 **Typos:**
 * `E` - :e!
@@ -132,8 +131,6 @@ Convenience mappings
 * `H` - Same as `^`
 * `L` - Same as `$`
 * `Tab` - Make the tab key match bracket pairs
-* `Ctrl-a` - Go to start of line in insert mode
-* `Ctrl-e` - Go to end of line in insert mode
 * `gI` - gi already moves to "last place you exited insert mode", so we'll map gI to something similar: move to last change
 * `,?` - Open a Quickfix window for the last search.
 * `,/` - Ack for the last search.
@@ -147,8 +144,6 @@ Plugins
 [Sparkup](https://github.com/rstacruz/sparkup): A parser for a condensed HTML format
 * `Ctrl-e` - Execute sparkup
 * `Ctrl-s` - Jump to the next empty tag/attribute
-* `,md` - Markdown Preview in the browser
-* `,,w` - Easy Motion
 
 Credits
 -------
