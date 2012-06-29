@@ -32,9 +32,7 @@ done
 
 # For some reason is not working on Linux. 
 # I added this condition to avoid errors.
-if [[ `uname` == "Darwin"  ]]; then
-  bind -f $dir/bash_bindings
-fi
+bind -f $dir/bash_bindings
 
 # Autocomplete for 'g' as well
 complete -o default -o nospace -F _git g
