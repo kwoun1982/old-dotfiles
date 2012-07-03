@@ -12,7 +12,7 @@ filetype off
 call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
 
-imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams disagrees
+inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams disagrees
 
 " }}}
 " Basic options ----------------------------------------------------------- {{{
