@@ -24,14 +24,12 @@ shopt -s histappend >/dev/null 2>&1
 dir=$HOME/.dotfiles
 
 # Load files
-files=( bash_ps1 bash_completion bash_functions git_completion git_flow_completion bash_aliases )
+files=( bash_ps1 bash_completion git_completion bash_functions bash_aliases )
 for file in ${files[@]}; do
   file="$dir/$file"
   [ -e "$file" ] && source "$file"
 done
 
-# For some reason is not working on Linux. 
-# I added this condition to avoid errors.
 bind -f $dir/bash_bindings
 
 # Autocomplete for 'g' as well
@@ -57,25 +55,13 @@ export MANPAGER="less -X"
 export LESS="-R"
 [[ -z $DISPLAY ]] && export DISPLAY=":0.0"
 
-
 export PATH=$PATH:$dir/bin
 # Customize to your needs...
 export NODE_PATH="/usr/local/lib/node"
 
-# load RVM
-if [ -s "$HOME/.rvm/scripts/rvm" ]; then
-  source "$HOME/.rvm/scripts/rvm"
-  rvm load-rvmrc
-fi
-
 # Put secret configuration settings in ~/.secrets
 if [ -s ~/.secrets ]; then
   source ~/.secrets
-fi
-
-# load rbenv
-if [ -d "$HOME/.rbenv/bin" ]; then
-  eval "$(rbenv init -)"
 fi
 
 export PATH="\
