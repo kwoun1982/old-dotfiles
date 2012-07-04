@@ -21,10 +21,19 @@ export HISTIGNORE="l[sla]:rm:mv:mkdir:cd:[bf]g:exit:logout"
 # append to the history file, don't overwrite it
 shopt -s histappend >/dev/null 2>&1
 
+# PROMPT {{{
+
+BRANCH="\$(git branch 2>/dev/null | grep -e '\*' | sed 's/^..\(.*\)/\\[\\033[45;30m\\]\\[⭠ \\]\1 \\[\\033[42;35m\\]⮀/')"
+
+PS1="\n${BRANCH}\[\033[42;30m\] \u ⮁ \h \[\033[47;32m\]⮀\[\033[47;30m\] \w \[\033[49;37m\]⮀\[\033[49;37m\]\n\n\[\033[40;1;33m\] ⚡ \[\033[49;0;30m\]⮀\[\033[49;37m\] "
+PS2="\[\033[40;1;33m\] ❯ \[\033[49;0;30m\]⮀\[\033[49;37m\] "
+
+# }}}
+
 dir=$HOME/.dotfiles
 
 # Load files
-files=( bash_ps1 bash_completion git_completion bash_functions bash_aliases )
+files=(git_completion bash_functions bash_aliases )
 for file in ${files[@]}; do
   file="$dir/$file"
   [ -e "$file" ] && source "$file"
@@ -57,7 +66,6 @@ export LESS="-R"
 
 export PATH=$PATH:$dir/bin
 # Customize to your needs...
-export NODE_PATH="/usr/local/lib/node"
 
 # Put secret configuration settings in ~/.secrets
 if [ -s ~/.secrets ]; then
