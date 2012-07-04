@@ -244,9 +244,6 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
 
     nnoremap ; :
 
-    " Go to previous word
-    map E <Plug>CamelCaseMotion_b
-
     " Add spaces around a symbol with Ctrl-Space
     nnoremap <C-Space> i <esc><right>a <esc>
 
