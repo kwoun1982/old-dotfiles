@@ -11,7 +11,7 @@ To install run
 
 Screenshots
 -----------
-![iTerm2 with eduarbo color theme](https://img.skitch.com/20110925-dt884m6bwnnqwc5dsrt2td4anc.png)
+![iTerm2 with eduarbo color theme](http://i.minus.com/iDiKGtFcFmfl4.png)
 
 Features
 --------
@@ -27,6 +27,8 @@ Features
 
 Vim Configuration
 =================
+
+![My Macvim](http://i.minus.com/ig3nxvvgSCZGS.png)
 
 Features
 --------
