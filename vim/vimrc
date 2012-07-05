@@ -399,10 +399,6 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     noremap L $
     vnoremap L g_
 
-    " Heresy
-    inoremap <c-a> <esc>I
-    inoremap <c-e> <esc>A
-
     " gi already moves to "last place you exited insert mode", so we'll map gI to
     " something similar: move to last change
     nnoremap gI `.
