@@ -430,7 +430,6 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     noremap k gk
     noremap gj j
     noremap gk k
-    noremap E ge
 
     " Easy buffer navigation
     noremap <C-h> <C-w>h
