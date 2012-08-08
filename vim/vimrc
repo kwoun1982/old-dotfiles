@@ -517,7 +517,7 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
         au BufNewFile,BufRead *.sass,*.scss,*.less,*.css inoremap <buffer> {<cr> {}<left><cr><cr><esc>kA<space><space><space><space><bs>
 
         " Compiling Less Files from Vim every save action
-        autocmd BufWritePost,FileWritePost *.less :silent !lessc <afile> <afile>:p:r.css
+        autocmd BufWritePost,FileWritePost *main.less :silent !lessc <afile> <afile>:p:r.css
     augroup END
 
     " }}}
@@ -586,6 +586,7 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
 
         au FileType markdown setlocal foldenable
         au FileType markdown setlocal omnifunc=htmlcomplete#CompleteTags
+        au Filetype markdown setlocal textwidth=80
 
         " Use <localleader>1/2/3 to add headings.
         au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
