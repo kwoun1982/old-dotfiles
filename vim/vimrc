@@ -51,6 +51,7 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     set matchpairs+=<:>
     set dictionary=/usr/share/dict/words
     set pastetoggle=<F2>            " Use it for pasting large amounts of text into Vim, disabling all kinds of smartness and just pasting a whole buffer of text
+    set shortmess=atI               " Stifle many interruptive prompts
 
     " This makes vim act like all other editors, buffers can
     " exist in the background without being in a window.
@@ -62,7 +63,7 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
 
     " Time out on key codes but not mappings.
     " Basically this makes terminal Vim work sanely.
-    " set notimeout
+    set notimeout
     set ttimeout
     set ttimeoutlen=10
 
@@ -71,9 +72,6 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
 
     " Better Completion
     set completeopt=longest,menuone,preview
-
-    " Disable the stupid pydoc preview window for the omni completion
-    set completeopt-=preview
 
     " Save when losing focus
     " au FocusLost * :silent! wall
@@ -95,12 +93,6 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     " }}}
     " Trailing whitespace {{{
     " Only shown when not in insert mode so I don't go insane.
-
-    augroup trailing
-        au!
-        au InsertEnter * :set listchars-=trail:⌴
-        au InsertLeave * :set listchars+=trail:⌴
-    augroup END
 
     " }}}
     " Wildmenu completion {{{
@@ -151,19 +143,22 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     " noexpandtab is better for this:
     " 	vimoutliner files
     " 	word lists for GRE prep
+    
+    " 	FYI: this is a good article of Tabs vs. Spaces for identation 
+    " 	http://nithinbekal.com/2011/tabs-vs-spaces-for-indentation/
+    
     set expandtab		" no real tabs please!
 
     set tabstop=8
     set shiftwidth=4
     set softtabstop=4
-    set textwidth=0
-    set nowrap
+    set textwidth=80
+    set wrap
     set formatoptions=qrn1
     set colorcolumn=+1
 
-    autocmd FileType html,xhtml,javascript setlocal sw=2 ts=2 sts=2
-    autocmd FileType python setlocal sw=4 ts=4 sts=4
-    autocmd FileType css,sass,scss,less,ruby,eruby setlocal sw=2 ts=2 sts=2
+    au FileType html,xhtml,javascript,jst setlocal sw=2 ts=2 sts=2
+    au FileType css,sass,scss,less,ruby,eruby setlocal sw=2 ts=2 sts=2
 
     let g:indent_guides_auto_colors = 1
     let g:indent_guides_start_level = 2
@@ -177,28 +172,17 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     " Enable soft-wrapping for text files
     autocmd FileType text,markdown,html setlocal wrap linebreak nolist
 
-    "Wrap visually selected text
-    " vnoremap (  <ESC>`>a)<ESC>`<i(<ESC>
-    " vnoremap )  <ESC>`>a)<ESC>`<i(<ESC>
-    " vnoremap {  <ESC>`>a}<ESC>`<i{<ESC>
-    " vnoremap }  <ESC>`>a}<ESC>`<i{<ESC>
-    " vnoremap "  <ESC>`>a"<ESC>`<i"<ESC>
-    " vnoremap '  <ESC>`>a'<ESC>`<i'<ESC>
-    " vnoremap `  <ESC>`>a`<ESC>`<i`<ESC>
-    " vnoremap [  <ESC>`>a]<ESC>`<i[<ESC>
-    " vnoremap ]  <ESC>`>a]<ESC>`<i[<ESC>
-
     " }}}
 
     " }}}
     " Backups {{{
 
-    set undodir=~/.vim/tmp/undo         " undo files
-    set backupdir=~/.vim/tmp/backup     " backups
-    set directory=~/.vim/tmp/swap       " swap files
+    set undodir=~/.vim/tmp/undo//         " undo files
+    set backupdir=~/.vim/tmp/backup//     " backups
+    set directory=~/.vim/tmp/swap//       " swap files
     set undofile
-    set nobackup                        " disable backups
-    set noswapfile                      " It's 2012, Vim.
+    set nobackup                          " disable backups
+    set noswapfile                        " It's 2012, Vim.
 
     " }}}
     " Leader {{{
@@ -210,15 +194,16 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     " Color scheme {{{
 
     syntax on
-    " let g:badwolf_html_link_underline = 0
-    " colorscheme badwolf
-    colorscheme monokai
-    set background=dark
+    let g:badwolf_html_link_underline = 0
+    colorscheme badwolf
+    " colorscheme monokai
+    " set background=dark
 
     " Reload the colorscheme whenever we write the file.
     augroup color_monokai_dev
         au!
-        au BufWritePost monokai.vim color monokai
+        au BufWritePost badwolf.vim color badwolf
+        " au BufWritePost monokai.vim color monokai
     augroup END
 
     " Highlight VCS conflict markers
@@ -323,6 +308,10 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
 
     " Has to be an autocommand because repeat.vim eats the mapping otherwise :(
     au VimEnter * :nnoremap U <c-r>
+
+    " Scroll the viewport faster
+    nnoremap <C-e> 3<C-e>
+    nnoremap <C-y> 3<C-y>
 
     " Drag Lines {{{
     " Alt+j and Alt+k to drag lines in any mode
