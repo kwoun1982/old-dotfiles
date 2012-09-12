@@ -48,7 +48,7 @@ if !exists("g:badwolf_html_link_underline") " {{{
 endif " }}}
 
 if !exists("g:badwolf_css_props_highlight") " {{{
-    let g:badwolf_css_props_highlight = 1
+    let g:badwolf_css_props_highlight = 0
 endif " }}}
 
 " }}}
@@ -300,7 +300,7 @@ call s:HL('DiffText',   'snow', 'deepergravel', 'bold')
 
 if has("spell")
     call s:HL('SpellCap', 'dalespale', 'bg', 'undercurl,bold', 'dalespale')
-    call s:HL('SpellBad', '', '', 'undercurl', 'dalespale')
+    call s:HL('SpellBad', '', 'bg', 'undercurl', 'dalespale')
     call s:HL('SpellLocal', '', '', 'undercurl', 'dalespale')
     call s:HL('SpellRare', '', '', 'undercurl', 'dalespale')
 endif
@@ -321,13 +321,13 @@ endif
     " the line prefix '>' in the match window
     call s:HL('CtrlPLinePre', 'deepgravel', 'bg', 'none')
 
-    " the promptâ€™s base
+    " the prompt’s base
     call s:HL('CtrlPPrtBase', 'deepgravel', 'bg', 'none')
 
-    " the promptâ€™s text
+    " the prompt’s text
     call s:HL('CtrlPPrtText', 'plain', 'bg', 'none')
 
-    " the promptâ€™s cursor when moving over the text
+    " the prompt’s cursor when moving over the text
     call s:HL('CtrlPPrtCursor', 'coal', 'tardis', 'bold')
 
     " 'prt' or 'win', also for 'regex'
@@ -340,7 +340,7 @@ endif
     call s:HL('CtrlPStats', 'coal', 'tardis', 'bold')
 
     " TODO: CtrlP extensions.
-    " CtrlPTabExtra  : the part of each line thatâ€™s not matched against (Comment)
+    " CtrlPTabExtra  : the part of each line that’s not matched against (Comment)
     " CtrlPqfLineCol : the line and column numbers in quickfix mode (|s:HL-Search|)
     " CtrlPUndoT     : the elapsed time in undo mode (|s:HL-Directory|)
     " CtrlPUndoBr    : the square brackets [] in undo mode (Comment)
@@ -476,6 +476,33 @@ call s:HL('javaDocTags', 'snow', '', 'none')
 call s:HL('javaDocParam', 'dalespale', '', '')
 
 " }}}
+" LaTeX {{{
+
+call s:HL('texStatement', 'tardis', '', 'none')
+call s:HL('texMathZoneX', 'orange', '', 'none')
+call s:HL('texMathZoneA', 'orange', '', 'none')
+call s:HL('texMathZoneB', 'orange', '', 'none')
+call s:HL('texMathZoneC', 'orange', '', 'none')
+call s:HL('texMathZoneD', 'orange', '', 'none')
+call s:HL('texMathZoneE', 'orange', '', 'none')
+call s:HL('texMathZoneV', 'orange', '', 'none')
+call s:HL('texMathZoneX', 'orange', '', 'none')
+call s:HL('texMath', 'orange', '', 'none')
+call s:HL('texMathMatcher', 'orange', '', 'none')
+call s:HL('texRefLabel', 'dirtyblonde', '', 'none')
+call s:HL('texRefZone', 'lime', '', 'none')
+call s:HL('texComment', 'darkroast', '', 'none')
+call s:HL('texDelimiter', 'orange', '', 'none')
+call s:HL('texZone', 'brightgravel', '', 'none')
+
+augroup badwolf_tex
+    au!
+
+    au BufRead,BufNewFile *.tex syn region texMathZoneV start="\\(" end="\\)\|%stopzone\>" keepend contains=@texMathZoneGroup
+    au BufRead,BufNewFile *.tex syn region texMathZoneX start="\$" skip="\\\\\|\\\$" end="\$\|%stopzone\>" keepend contains=@texMathZoneGroup
+augroup END
+
+" }}}
 " LessCSS {{{
 
 call s:HL('lessVariable', 'lime', '', 'none')
@@ -521,6 +548,11 @@ call s:HL('markdownLinkTextDelimiter', 'lightgravel', '', 'bold')
 call s:HL('markdownCodeDelimiter', 'dirtyblonde', '', 'bold')
 call s:HL('markdownCode', 'dirtyblonde', '', 'none')
 call s:HL('markdownCodeBlock', 'dirtyblonde', '', 'none')
+
+" }}}
+" MySQL {{{
+
+call s:HL('mysqlSpecial', 'dress', '', 'bold')
 
 " }}}
 " Python {{{
