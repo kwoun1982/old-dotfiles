@@ -224,6 +224,15 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     " Change inside quotes with <leader>-" and <leader>-'
     nnoremap <Leader>' ci'
     nnoremap <Leader>" ci"
+    
+    " Front and center
+    " Use :sus for the rare times I want to actually background Vim.
+    nnoremap <c-z> zvzz
+    vnoremap <c-z> <esc>zv`<ztgv
+
+    " Tabs
+    nnoremap <leader>( :tabprev<cr>
+    nnoremap <leader>) :tabnext<cr>
 
     " Go to last edit location with ,.
     nnoremap ,. '.
@@ -242,9 +251,15 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     " create <%= foo %> erb tags using Ctrl-j in insert mode
     imap <silent> <C-\> <%  %><Esc>2hi
 
-    " create <%= foo %> erb tags using ctrl-k in insert mode
     " insert a => hashrocket
     imap <silent> <c-l> =>
+
+    " Select entire buffer
+    nnoremap vaa ggvGg_
+    nnoremap Vaa ggVG
+
+     HTML tag closing
+     inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
     " Clean trailing whitespace
     nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
@@ -290,18 +305,7 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
     " Sudo to write
-    " cnoremap w!! w !sudo tee % >/dev/null
-
-    " Typos
-    command! -bang E e<bang>
-    command! -bang Q q<bang>
-    command! -bang W w<bang>
-    command! -bang QA qa<bang>
-    command! -bang Qa qa<bang>
-    command! -bang Wa wa<bang>
-    command! -bang WA wa<bang>
-    command! -bang Wq wq<bang>
-    command! -bang WQ wq<bang>
+    cnoremap W! w !sudo tee %
 
     " Toggle [i]nvisible characters
     nnoremap <leader>i :set list!<cr>
