@@ -258,8 +258,8 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     nnoremap vaa ggvGg_
     nnoremap Vaa ggVG
 
-     HTML tag closing
-     inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
+    " HTML tag closing
+    inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
     " Clean trailing whitespace
     nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
@@ -511,7 +511,7 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
         au BufNewFile,BufRead *.sass,*.scss,*.less,*.css inoremap <buffer> {<cr> {}<left><cr><cr><esc>kA<space><space><space><space><bs>
 
         " Compiling Less Files from Vim every save action
-        autocmd BufWritePost,FileWritePost *main.less :silent !lessc <afile> <afile>:p:r.css
+        " autocmd FileType *.less noremap <silent> <buffer> <C-c> !lessc <afile> <afile>:p:r.css
     augroup END
 
     " }}}
@@ -663,7 +663,9 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     augroup END
 
     " }}}
-
+    " Others {{{
+    au! BufRead,BufNewFile *.hamlc set filetype=haml
+    " }}}
 " }}}
 " Mini-plugins ------------------------------------------------------------ {{{
 
