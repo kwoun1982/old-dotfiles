@@ -37,7 +37,6 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     set shell=/bin/bash
     set lazyredraw                  " Do not redraw while running macros
     set matchtime=3                 " how many tenths of a second to blink
-    "set showbreak=…
     set showbreak=↪
     set splitbelow
     set splitright
@@ -51,13 +50,15 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     set nowarn
     set matchpairs+=<:>
     set dictionary=/usr/share/dict/words
-    " set clipboard=unnamed
     set pastetoggle=<F2>            " Use it for pasting large amounts of text into Vim, disabling all kinds of smartness and just pasting a whole buffer of text
 
     " This makes vim act like all other editors, buffers can
     " exist in the background without being in a window.
     " http://items.sjbach.com/319/configuring-vim-right
     set hidden
+
+    "Enable extended % matching
+    runtime macros/matchit.vim 
 
     " Time out on key codes but not mappings.
     " Basically this makes terminal Vim work sanely.
