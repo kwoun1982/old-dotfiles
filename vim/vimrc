@@ -494,8 +494,8 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
         " positioned inside of them AND the following code doesn't get unfolded.
         au BufNewFile,BufRead *.sass,*.scss,*.less,*.css inoremap <buffer> {<cr> {}<left><cr><cr><esc>kA<space><space><space><space><bs>
 
-        " Compiling Less Files from Vim every save action
-        " autocmd FileType *.less noremap <silent> <buffer> <C-c> !lessc <afile> <afile>:p:r.css
+        " Compiling Less Files
+        nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
     augroup END
 
     " }}}
