@@ -147,6 +147,22 @@ Plugins
 * `Ctrl-e` - Execute sparkup
 * `Ctrl-s` - Jump to the next empty tag/attribute
 
+Troubleshooting
+---------------
+
+**Macvim is falling to compile with the correct version, it is using an older
+one**
+
+Try this: 
+    cd /System/Library/Frameworks/Python.framework/Versions
+    sudo mv Current Current-sys
+    sudo ln -s /usr/local/Cellar/python/2.7.3/Frameworks/Python.framework/Versions/2.7 Current
+
+    brew install macvim
+
+    sudo mv Current Current-brew
+    sudo mv Current-sys Current
+
 Credits
 -------
 
