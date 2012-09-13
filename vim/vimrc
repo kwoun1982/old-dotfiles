@@ -397,15 +397,6 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     " something similar: move to last change
     nnoremap gI `.
 
-    " Open a Quickfix window for the last search.
-    nnoremap <silent> <leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
-
-    " Ack for the last search.
-    nnoremap <silent> <leader>/ :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
-
-    " Start searching with Ack
-    nnoremap <leader>a :Ack
-
     " Toggle "keep current line in the center of the screen" mode
     nnoremap <leader>C :let &scrolloff=999-&scrolloff<cr>
 
