@@ -682,6 +682,14 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     let g:Powerline_cache_enabled = 1
 
     " }}}
+    " CamelCaseMotion {{{
+    map <silent> w <Plug>CamelCaseMotion_w
+    map <silent> b <Plug>CamelCaseMotion_b
+    map <silent> e <Plug>CamelCaseMotion_e
+    sunmap w
+    sunmap b
+    sunmap e
+    " }}}
     " CommentT {{{
 
     " Command-/ to toggle comments
