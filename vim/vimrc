@@ -348,8 +348,8 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
 " Searching and movement -------------------------------------------------- {{{
 
     " Use sane regexes.
-    nnoremap / /\v
-    vnoremap / /\v
+    " nnoremap / /\v
+    " vnoremap / /\v
 
     set ignorecase
     set smartcase
