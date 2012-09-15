@@ -865,6 +865,9 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
     let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 
     " }}}
+    " Tagbar {{{
+    noremap <Leader>t :TagbarToggle<CR> 
+    " }}}
 
 " }}}
 " Environments (GUI/Console) ---------------------------------------------- {{{
@@ -902,6 +905,7 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
         if has("gui_macvim")
             " Full screen means FULL screen
             set fuoptions=maxvert,maxhorz
+            au GUIEnter * set fullscreen
 
             " Use the normal HIG movements, except for M-Up/Down
             let macvim_skip_cmd_opt_movement = 1

@@ -51,6 +51,7 @@ You will need to install those packages:
 * Ack
 * JSLint
 * Less
+* cTags
 
 And have VIM version 7.3 In OS X you can install it with brew `brew install macvim`
 
@@ -59,11 +60,11 @@ other dependencies.
 
 **Install on Debian / Ubuntu with:**
 
-    sudo apt-get install nodejs npm ack-grep
+    sudo apt-get install nodejs npm ack-grep ctags
 
 **Install on OSX (I will suggest to use [homebrew](http://mxcl.github.com/homebrew/)):**
 
-    brew install ack node && curl http://npmjs.org/install.sh | sh
+    brew install ack ctags node && curl http://npmjs.org/install.sh | sh
 
 Once you have installed node and npm install these packages required for some
 plugins:
