@@ -495,7 +495,8 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
         au BufNewFile,BufRead *.sass,*.scss,*.less,*.css inoremap <buffer> {<cr> {}<left><cr><cr><esc>kA<space><space><space><space><bs>
 
         " Compiling Less Files
-        nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
+        " nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
+        nnoremap <Leader>l :w <BAR> silent !lessc % %:p:r.css<CR>
     augroup END
 
     " }}}
