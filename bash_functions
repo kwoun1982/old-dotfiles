@@ -1,9 +1,19 @@
 #!/bin/bash
 
-function myip {
-  res=$(curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+')
-  echo "$res"
+# Determine size of a file or total size of a directory
+function fs() {
+	if du -b /dev/null > /dev/null 2>&1; then
+		local arg=-sbh
+	else
+		local arg=-sh
+	fi
+	if [[ -n "$@" ]]; then
+		du $arg -- "$@"
+	else
+		du $arg .[^.]* *
+	fi
 }
+
 
 function git_stats {
 # awesome work from https://github.com/esc/git-stats
@@ -41,4 +51,61 @@ if [ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]; then
 else
     echo "you're currently not in a git repository"
 fi
+}
+
+# Start an HTTP server from a directory, optionally specifying the port
+function server() {
+    # Get port (if specified)
+    local port="${1:-8000}"
+
+    # Open in the browser
+    open "http://localhost:${port}/"
+
+    # Redefining the default content-type to text/plain instead of the default
+    # application/octet-stream allows "unknown" files to be viewable in-browser
+    # as text instead of being downloaded.
+    #
+    # Unfortunately, "python -m SimpleHTTPServer" doesn't allow you to redefine
+    # the default content-type, but the SimpleHTTPServer module can be executed
+    # manually with just a few lines of code.
+    python -c $'import SimpleHTTPServer;\nSimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map[""] = "text/plain";\nSimpleHTTPServer.test();' "$port"
+}
+
+# Add note to Notes.app (OS X 10.8)
+# Usage: `note 'foo'` or `echo 'foo' | note`
+function note() {
+	local text
+	if [ -t 0 ]; then # argument
+		text="$1"
+	else # pipe
+		text=$(cat)
+	fi
+	body=$(echo "$text" | sed -E 's|$|<br>|g')
+	osascript >/dev/null <<EOF
+tell application "Notes"
+	tell account "iCloud"
+		tell folder "Notes"
+			make new note with properties {name:"$text", body:"$body"}
+		end tell
+	end tell
+end tell
+EOF
+}
+
+# Add reminder to Reminders.app (OS X 10.8)
+# Usage: `remind 'foo'` or `echo 'foo' | remind`
+function remind() {
+	local text
+	if [ -t 0 ]; then
+		text="$1" # argument
+	else
+		text=$(cat) # pipe
+	fi
+	osascript >/dev/null <<EOF
+tell application "Reminders"
+	tell the default list
+		make new reminder with properties {name:"$text"}
+	end tell
+end tell
+EOF
 }

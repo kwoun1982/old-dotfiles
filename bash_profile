@@ -1,44 +1,51 @@
 #!/bin/bash
 
-set match-hidden-files off
-set page-completions off
-set completion-query-items 350
+DOTFILES=$HOME/.dotfiles
 
-# set big history file 
-export HISTSIZE=100000
-export HISTFILESIZE=500000
+export PATH="\
+$DOTFILES/bin:\
+/usr/local/bin:\
+$HOME/.rvm/bin:\
+$(brew --prefix coreutils)/libexec/gnubin:\
+$PATH:\
+"&>/dev/null
 
-# Now bash writes and re-reads the history file every time it prints a new prompt for you.
-export PROMPT_COMMAND="history -a ; history -n;  ${PROMPT_COMMAND}"
+# Load files
+files=(bash_prompt bash_functions bash_aliases bash_exports)
+for file in ${files[@]}; do
+  file="$DOTFILES/$file"
+  [ -e "$file" ] && source "$file"
+done
+
+bind -f $DOTFILES/bash_bindings
+
+# Bash completion (installed via Homebrew; source after `brew` is added to PATH)
+[ -r "$(brew --prefix)/etc/bash_completion" ] && source "$(brew --prefix)/etc/bash_completion"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# no duplicates in bash history and ignore same sucessive entries. 
-export HISTCONTROL=ignoredups:erasedups
-export HISTIGNORE="l[sla]:rm:mv:mkdir:cd:[bf]g:exit:logout"
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob
+
 # append to the history file, don't overwrite it
 shopt -s histappend >/dev/null 2>&1
 
-# PROMPT {{{
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
 
-BRANCH="\$(git branch 2>/dev/null | grep -e '\*' | sed 's/^..\(.*\)/\\[\\033[47;30m\\]\\[⭠ \\]\1 \\[\\033[40;37m\\]⮀/')"
+# no duplicates in bash history and ignore same sucessive entries. 
+set match-hidden-files off
+set page-completions off
+set completion-query-items 350
 
-PS1="\n${BRANCH}\[\033[40;32m\] \u ⮁ \h \[\033[49;30m\]⮀ \[\033[49;34m\]\w \[\033[49;37m\]\n\n\[\033[49;1;33m\] ⚡ \[\033[0m\]"
-PS2="\[\033[49;1;33m\] ❯ \[\033[0m\]"
-# }}}
-
-dir=$HOME/.dotfiles
-
-# Load files
-files=(git_completion bash_functions bash_aliases )
-for file in ${files[@]}; do
-  file="$dir/$file"
-  [ -e "$file" ] && source "$file"
+# Enable some Bash 4 features when possible:
+# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * Recursive globbing, e.g. `echo **/*.txt`
+for option in autocd globstar; do
+    shopt -s "$option" 2> /dev/null
 done
-
-bind -f $dir/bash_bindings
 
 # Autocomplete for 'g' as well
 complete -o default -o nospace -F _git g
@@ -47,38 +54,4 @@ complete -o default -o nospace -F _git_checkout gco
 complete -o default -o nospace -F _git_diff gd
 complete -o default -o nospace -F _git_branch gb
 
-# some settings to be more colorful
-export CLICOLOR=1
-export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
-export CLICOLOR=true
-export LSCOLORS=ExGxFxdxCxDxDxBxBxExEx
-
-# use Vim as default editor
-export EDITOR="vim"
-export VISUAL=$EDITOR
-
-# Don’t clear the screen after quitting a manual page
-export MANPAGER="less -X"
-
-export LESS="-R"
-[[ -z $DISPLAY ]] && export DISPLAY=":0.0"
-
-export PATH=$PATH:$dir/bin
 # Customize to your needs...
-
-# Put secret configuration settings in ~/.secrets
-if [ -s ~/.secrets ]; then
-  source ~/.secrets
-fi
-
-export PATH="\
-/usr/local/bin:\
-/usr/local/share/python:\
-$dir/bin:\
-/opt/local/bin:\
-/usr/local/lib/node:\
-/usr/local/mysql/bin:\
-/usr/games/bin:\
-/opt/local/lib/postgresql84/bin:\
-$PATH:\
-"&>/dev/null
