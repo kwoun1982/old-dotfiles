@@ -75,8 +75,8 @@ alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 # git alias
 alias g='git'
 alias gs='git status'
-alias gc='git commit -m '
-alias gcc='git commit --amend -m '
+alias gc='git commit'
+alias gcc='git commit -m'
 alias gca='git commit -a'
 alias gm='git merge'
 alias gg="git grep --color -n"
