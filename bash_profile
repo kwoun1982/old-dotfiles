@@ -5,17 +5,10 @@ DOTFILES=$HOME/.dotfiles
 # Bash completion (installed via Homebrew; source after `brew` is added to PATH)
 [ -r "$(brew --prefix)/etc/bash_completion" ] && source "$(brew --prefix)/etc/bash_completion"
 
-if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
-    . `brew --prefix`/etc/bash_completion.d/git-completion.bash
-fi
-
-if [ -f `brew --prefix`/etc/bash_completion.d/git-prompt.sh ]; then
-    . `brew --prefix`/etc/bash_completion.d/git-prompt.sh
-fi
-
 export PATH="\
 $DOTFILES/bin:\
 /usr/local/bin:\
+/usr/local/share/npm/bin:\
 $HOME/.rvm/bin:\
 $(brew --prefix coreutils)/libexec/gnubin:\
 $PATH:\
@@ -27,6 +20,9 @@ for file in ${files[@]}; do
   file="$DOTFILES/$file"
   [ -e "$file" ] && source "$file"
 done
+
+# This loads RVM into a shell session.
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 bind -f $DOTFILES/bash_bindings
 
