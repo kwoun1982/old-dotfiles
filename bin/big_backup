@@ -1,4 +1,0 @@
-#!/bin/bash
-#rsync -X -aP --delete-after ~ /Volumes/untitled/backup/ --exclude-from= ~/.gh-dotfiles/conf/big_backup_excludes
-rsync -X -aP ~ /Volumes/big/backups/ \
-  --delete --exclude-from=/Users/framallo/.gh-dotfiles/conf/big_backup_excludes
