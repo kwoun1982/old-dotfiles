@@ -15,7 +15,6 @@ function mirrorfiles() {
     echo -e "[include]\n\tpath = .dotfiles/gitconfig" >> "$HOME/.gitconfig"
 
     ln -s "$DOTFILES/gitignore" "$HOME/.gitignore"
-    # rsync -avz --quiet ${DOTFILES}/gitignore ${HOME}/.gitignore
 
     echo "source $DOTFILES/bash_profile" >> "$HOME/.bash_profile"
     echo "source $DOTFILES/bashrc" >> "$HOME/.bashrc"
@@ -27,7 +26,7 @@ function mirrorfiles() {
     echo "source $DOTFILES/vim/vimrc" >> "$HOME/.vimrc"
 }
 
-read -p "This will overwrite some existing files in your home directory (`.vim` and `.gitignore`). Are you sure? (y/n) " -n 1
+read -p "This will overwrite some existing files in your home directory (.vim and .gitignore). Are you sure? (y/n) " -n 1
 
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -35,7 +34,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     source "$HOME/.bash_profile"
 fi
 
-read -p "Are you Eduardo Ruiz" -n 1
+read -p "Are you Eduardo Ruiz (y/n) " -n 1
 
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
