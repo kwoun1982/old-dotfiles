@@ -24,6 +24,9 @@ function mirrorfiles() {
     ln -s "$DOTFILES/vim" "$HOME/.vim"
 
     echo "source $DOTFILES/vim/vimrc" >> "$HOME/.vimrc"
+
+    rsync -avz --quiet ${DOTFILES}/fonts/*  ${HOME}/Library/Fonts/ 
+    ln -s "$DOTFILES/iTerm-themes" "$HOME/"
 }
 
 read -p "This will overwrite some existing files in your home directory (.vim and .gitignore). Are you sure? (y/n) " -n 1

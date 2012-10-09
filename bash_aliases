@@ -37,22 +37,6 @@ alias v="mvim"
 alias mvimt="mvim --remote-tab"
 alias mvt="mvim --remote-tab ."
 
-# git alias
-alias g='git'
-alias gs='git status'
-alias gc='git commit -m '
-alias gcc='git commit --amend -m '
-alias gca='git commit -a'
-alias ga='git add'
-alias gco='git checkout'
-alias gb='git branch'
-alias gm='git merge'
-alias gd="git diff"
-alias gg="git grep --color -n"
-alias ggi="git grep -ni"
-alias gr="git rm"
-alias grc="git rm --cached"
-
 # node alias
 alias n="node"
 
@@ -87,3 +71,49 @@ alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pa
 
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+
+# git alias
+alias g='git'
+alias gs='git status'
+alias gc='git commit -m '
+alias gcc='git commit --amend -m '
+alias gca='git commit -a'
+alias gm='git merge'
+alias gg="git grep --color -n"
+alias ggi="git grep -ni"
+
+# Hack to fix issues with autocompletion using aliases
+__define_git_completion () {
+eval "
+    _git_$2_shortcut () {
+        COMP_LINE=\"git $2\${COMP_LINE#$1}\"
+        let COMP_POINT+=$((4+${#2}-${#1}))
+        COMP_WORDS=(git $2 \"\${COMP_WORDS[@]:1}\")
+        let COMP_CWORD+=1
+
+        local cur words cword prev
+        _get_comp_words_by_ref -n =: cur words cword prev
+        _git_$2
+    }
+"
+}
+
+__git_shortcut () {
+    type _git_$2_shortcut &>/dev/null || __define_git_completion $1 $2
+    alias $1="git $2 $3"
+    complete -o default -o nospace -F _git_$2_shortcut $1
+}
+
+__git_shortcut  ga    add
+__git_shortcut  gb    branch
+__git_shortcut  gba   branch -a
+__git_shortcut  gco   checkout
+__git_shortcut  gd    diff
+__git_shortcut  gdc   diff --cached
+__git_shortcut  gds   diff --stat
+__git_shortcut  gf    fetch
+__git_shortcut  gl    log
+__git_shortcut  glp   log -p
+__git_shortcut  gls   log --stat
+__git_shortcut  gr    rm
+__git_shortcut  grr   rm --cached

@@ -2,6 +2,17 @@
 
 DOTFILES=$HOME/.dotfiles
 
+# Bash completion (installed via Homebrew; source after `brew` is added to PATH)
+[ -r "$(brew --prefix)/etc/bash_completion" ] && source "$(brew --prefix)/etc/bash_completion"
+
+if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
+    . `brew --prefix`/etc/bash_completion.d/git-completion.bash
+fi
+
+if [ -f `brew --prefix`/etc/bash_completion.d/git-prompt.sh ]; then
+    . `brew --prefix`/etc/bash_completion.d/git-prompt.sh
+fi
+
 export PATH="\
 $DOTFILES/bin:\
 /usr/local/bin:\
@@ -18,9 +29,6 @@ for file in ${files[@]}; do
 done
 
 bind -f $DOTFILES/bash_bindings
-
-# Bash completion (installed via Homebrew; source after `brew` is added to PATH)
-[ -r "$(brew --prefix)/etc/bash_completion" ] && source "$(brew --prefix)/etc/bash_completion"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -49,9 +57,5 @@ done
 
 # Autocomplete for 'g' as well
 complete -o default -o nospace -F _git g
-complete -o default -o nospace -F _git_add ga
-complete -o default -o nospace -F _git_checkout gco
-complete -o default -o nospace -F _git_diff gd
-complete -o default -o nospace -F _git_branch gb
 
 # Customize to your needs...
