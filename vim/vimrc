@@ -1,4 +1,4 @@
-" .vimrc
+
 " Author: Eduardo Ruiz <eduarbo@gmail.com>
 " Source: https://github.com/eduarbo/dotfiles/blob/master/vim/
 
@@ -962,10 +962,5 @@ inoremap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abr
 
 " }}}
 " Other ------------------------------------------------------------------- {{{
-
-    " Extend .vimrc
-    if filereadable(expand("~/.vimrc.local"))
-    source ~/.vimrc.local
-    endif
 
 " }}}
